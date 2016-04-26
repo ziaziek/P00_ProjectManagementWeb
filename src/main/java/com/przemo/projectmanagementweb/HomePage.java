@@ -5,14 +5,8 @@
  */
 package com.przemo.projectmanagementweb;
 
-import com.przemo.projectmanagementweb.controls.SprintsListPanel;
-import com.przemo.projectmanagementweb.controls.TasksListPanel;
-import com.przemo.projectmanagementweb.domain.Task;
-import com.przemo.projectmanagementweb.services.SprintService;
-import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.model.CompoundPropertyModel;
 
 /**
  *
@@ -21,18 +15,31 @@ import org.apache.wicket.model.CompoundPropertyModel;
 public class HomePage extends WebPage {
 
     public HomePage(){
-        add(new TasksListPanel("alltasks",new CompoundPropertyModel(new TaskService().getAllTasks())));
-        add(new SprintsListPanel("allsprints", new CompoundPropertyModel<>(new SprintService().retrieveAllSprints())));
-        add(new Link("backlogLink") {
+        add(new Link("sprintLink"){
+            @Override
+            public void onClick() {
+                setResponsePage(SprintsListPage.class);
+            }
+            
+        });
+        add(new Link("backlogLink"){
             @Override
             public void onClick() {
                 setResponsePage(BacklogPage.class);
             }
+            
         });
-        add(new Link("newTaskLink"){
+        add(new Link("taskLink"){
             @Override
             public void onClick() {
-                setResponsePage(new TaskPage(new CompoundPropertyModel<>(new Task())));
+                setResponsePage(TasksPage.class);
+            }
+            
+        });
+        add(new Link("adminLink"){
+            @Override
+            public void onClick() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
     }

@@ -6,15 +6,28 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <link rel="stylesheet" href="../../../../webapp/style.css" type="text/css"/>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
         <title>PNPM</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Under construction</div>
-        <div wicket:id="allsprints"></div>   
-        <div wicket:id="alltasks"></div>   
-        <a wicket:id="backlogLink">Open Backlog</a>
-        <a wicket:id="newTaskLink">Add Task</a>
+        <div class="centralPanel">
+            <ul class="noul nolink">
+                <li>
+                    <div class="menuBox sprintsPanel panelsFont"><p><a wicket:id="sprintLink">Sprints</a></p></div> 
+                </li>
+                <li>
+                    <div class="menuBox backlogPanel panelsFont"><p><a wicket:id="backlogLink">Backlog</a></p></div> 
+                </li>
+                <li>
+                    <div class="menuBox tasksPanel panelsFont"><p><a wicket:id="taskLink">Tasks</a></p></div> 
+                </li>
+                <li>
+                    <div class="menuBox adminPanel panelsFont"><p><a wicket:id="adminLink">Admin</a></div> 
+                </li>
+            </ul>
+        </div>
     </body>
 </html>
