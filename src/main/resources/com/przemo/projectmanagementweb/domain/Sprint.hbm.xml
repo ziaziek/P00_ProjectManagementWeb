@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-04-20 12:30:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.przemo.projectmanagementweb.domain.Sprint" optimistic-lock="version" schema="public" table="sprint">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="name" type="string">
+      <column length="50" name="name" not-null="true"/>
+    </property>
+    <property name="startDate" type="timestamp">
+      <column length="29" name="start_date" not-null="true"/>
+    </property>
+    <property name="endDate" type="timestamp">
+      <column length="29" name="end_date" not-null="true"/>
+    </property>
+    <property name="timeAvailable" type="int">
+      <column name="time_available" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="tasks" table="task">
+      <key>
+        <column name="sprint" not-null="true"/>
+      </key>
+      <one-to-many class="com.przemo.projectmanagementweb.domain.Task"/>
+    </set>
+  </class>
+</hibernate-mapping>

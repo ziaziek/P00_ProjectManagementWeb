@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-04-20 12:30:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="com.przemo.projectmanagementweb.domain.TaskComments" optimistic-lock="version" schema="public" table="task_comments">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.przemo.projectmanagementweb.domain.Task" fetch="select" name="task">
+      <column name="task" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.przemo.projectmanagementweb.domain.Users" fetch="select" name="users">
+      <column name="author" not-null="true"/>
+    </many-to-one>
+    <property name="date" type="timestamp">
+      <column length="29" name="date" not-null="true"/>
+    </property>
+    <property name="comment" type="string">
+      <column length="2048" name="comment"/>
+    </property>
+  </class>
+</hibernate-mapping>

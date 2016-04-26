@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <form wicket:id="form">
+           <h3><input wicket:id="title"></h3> 
+            Belongs to sprint: <select wicket:id="sprint"></select>
+            Status:<select wicket:id="status"></select>
+            Task type: <select wicket:id="taskType"></select>
+            <div style="border: solid 1px black; width:40%">
+                Description <br/><input wicket:id="description"/><br/>     
+            </div>
+            Estimated Time: <input wicket:id="estimatedTime"/>
+            Time logged: <input wicket:id="realTime"/><br/>
+            Currently assigned to : <input wicket:id="users.email"/>
+            <input type="submit" value="Save"/>
+        </form>
+        <div>
+                Comments: 
+                <div>
+                    <ul><li wicket:id="taskCommentses"></li></ul>
+                </div>
+            </div>
+    </body>
+</html>
