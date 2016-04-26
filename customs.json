@@ -1,6 +1,8 @@
 {
     "elements": {
-        "wicket:panel": {}
+        "wicket:child": {},
+        "wicket:panel": {},
+        "wicket:extend": {}
     },
     "attributes": {
         "wicket:id": {}

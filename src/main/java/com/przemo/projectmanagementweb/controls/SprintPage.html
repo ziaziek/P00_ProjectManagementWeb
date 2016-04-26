@@ -11,6 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+    <wicket:extend>
         <div>Sprint <span wicket:id="name"></span></div>
         <div>
             Start date: <input wicket:id="startDate"/>
@@ -22,5 +23,7 @@ and open the template in the editor.
             Tasks:
             <div wicket:id="tasksList"></div>
         </div>
+    </wicket:extend>
+        
     </body>
 </html>

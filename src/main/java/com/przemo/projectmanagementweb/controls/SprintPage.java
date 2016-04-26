@@ -5,9 +5,9 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
+import com.przemo.projectmanagementweb.BasePMPage;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.services.TaskService;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -18,7 +18,7 @@ import org.apache.wicket.model.Model;
  *
  * @author Przemo
  */
-class SprintPage extends WebPage {
+class SprintPage extends BasePMPage {
 
     public SprintPage(IModel<Sprint> model) {
         super(model);

@@ -13,7 +13,6 @@ import com.przemo.projectmanagementweb.domain.TaskType;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -26,7 +25,7 @@ import org.apache.wicket.model.IModel;
  *
  * @author Przemo
  */
-public class TaskPage extends WebPage {
+public class TaskPage extends BasePMPage {
     
     public TaskPage(IModel<Task>model){
         super(model);

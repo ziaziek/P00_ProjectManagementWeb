@@ -6,19 +6,16 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Edit comment</title>
+        <title>Project Management</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../../../../webapp/style.css" type="text/css">
     </head>
     <body>
-    <wicket:extend>
-         <form wicket:id="form">
-            <p>User <span wicket:id="users.email"></span> wrote:</p>
-            <textarea wicket:id="comment"></textarea>
-            <span wicket:id="date"></span>  
-            <input type="submit" value="Save comment"/>
-        </form> 
-    </wicket:extend>
         
+        <wicket:child/>
+        
+        <button><a class="nolink" wicket:id="homeButton">Back to Home Page</a></button>
     </body>
 </html>

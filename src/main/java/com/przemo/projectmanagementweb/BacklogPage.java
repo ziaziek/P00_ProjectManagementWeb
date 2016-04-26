@@ -7,14 +7,13 @@ package com.przemo.projectmanagementweb;
 
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
 import com.przemo.projectmanagementweb.services.TaskService;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 /**
  *
  * @author Przemo
  */
-public class BacklogPage extends WebPage {
+public class BacklogPage extends BasePMPage {
     
     public BacklogPage(){
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(new TaskService().getBacklogTasks())));
