@@ -5,6 +5,7 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
+import com.przemo.projectmanagementweb.pages.SprintPage;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.services.SprintService;
 import java.util.List;

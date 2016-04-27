@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.przemo.projectmanagementweb;
+package com.przemo.projectmanagementweb.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
@@ -15,6 +15,7 @@ import org.apache.wicket.model.IModel;
  */
 public class BasePMPage extends WebPage {
     
+    
     public BasePMPage(){
         super();
         initPage();
@@ -24,6 +25,7 @@ public class BasePMPage extends WebPage {
         super(model);
         initPage();
     }
+    
     private void initPage(){
         add(new Link("homeButton"){
             @Override

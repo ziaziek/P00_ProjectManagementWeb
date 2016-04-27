@@ -9,11 +9,13 @@ import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import java.util.List;
 import org.hibernate.Session;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Przemo
  */
+@Service
 public class SprintService {
     
     public List<Sprint> retrieveAllSprints(){

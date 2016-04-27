@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.TaskPage;
+import com.przemo.projectmanagementweb.pages.TaskPage;
 import com.przemo.projectmanagementweb.domain.Task;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;

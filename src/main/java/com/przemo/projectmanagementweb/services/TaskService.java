@@ -13,11 +13,13 @@ import com.przemo.projectmanagementweb.domain.Users;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Przemo
  */
+@Service
 public class TaskService {
 
     public Task getOneTask(final String title) {

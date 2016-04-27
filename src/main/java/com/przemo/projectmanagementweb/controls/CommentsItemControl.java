@@ -5,6 +5,7 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
+import com.przemo.projectmanagementweb.pages.CommentEditPage;
 import com.przemo.projectmanagementweb.domain.TaskComments;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;

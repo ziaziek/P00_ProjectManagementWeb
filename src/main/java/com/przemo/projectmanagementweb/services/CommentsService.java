@@ -10,11 +10,13 @@ import com.przemo.projectmanagementweb.domain.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Przemo
  */
+@Service
 public class CommentsService {
     
     public List<TaskComments> retrieveComments(){

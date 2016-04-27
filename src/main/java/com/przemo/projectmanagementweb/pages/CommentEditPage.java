@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.przemo.projectmanagementweb.controls;
+package com.przemo.projectmanagementweb.pages;
 
-import com.przemo.projectmanagementweb.BasePMPage;
 import com.przemo.projectmanagementweb.domain.TaskComments;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
@@ -19,13 +19,16 @@ import org.apache.wicket.model.IModel;
  */
 public class CommentEditPage extends BasePMPage {
     
+    @SpringBean
+    private CommentsService commentsService;
+    
     public CommentEditPage(final IModel<TaskComments> model){
         super(model);
         Form form = new Form("form"){
             
             @Override
             protected void onSubmit() {
-                new CommentsService().saveComment(model.getObject());
+                commentsService.saveComment(model.getObject());
             }
             
         };

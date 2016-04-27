@@ -5,8 +5,11 @@
  */
 package com.przemo.projectmanagementweb;
 
+import com.przemo.projectmanagementweb.pages.HomePage;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  *
@@ -18,5 +21,16 @@ public class Application extends WebApplication {
     public Class<? extends Page> getHomePage() {
         return HomePage.class;
     }
+
+    @Override
+    protected void init() {
+        super.init();
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.scan("com.przemo.projectmanagementweb");
+        ctx.refresh();
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
+    }
+    
+    
     
 }

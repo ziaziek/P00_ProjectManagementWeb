@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.przemo.projectmanagementweb;
+package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.CommentsItemControl;
 import com.przemo.projectmanagementweb.domain.Sprint;
@@ -20,6 +20,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
@@ -27,13 +28,22 @@ import org.apache.wicket.model.IModel;
  */
 public class TaskPage extends BasePMPage {
     
+    @SpringBean
+    private TaskService taskService;
+    
+    @SpringBean
+    private CommentsService commentsService;
+    
+    @SpringBean
+    private SprintService sprintService;
+    
     public TaskPage(IModel<Task>model){
         super(model);
         
         Form form = new Form("form"){
             @Override
             protected void onSubmit() {
-                new TaskService().saveTask(model.getObject());
+                taskService.saveTask(model.getObject());
                 setResponsePage(HomePage.class);
             }
         };
@@ -42,7 +52,7 @@ public class TaskPage extends BasePMPage {
         form.add(new TextField("estimatedTime"));
         form.add(new TextField("realTime"));
         form.add(new TextField("users.email"));
-        form.add(new DropDownChoice("taskType", new TaskService().getTaskTypes(), new ChoiceRenderer<TaskType>(){
+        form.add(new DropDownChoice("taskType", taskService.getTaskTypes(), new ChoiceRenderer<TaskType>(){
             @Override
             public Object getDisplayValue(TaskType object) {
                 return object.getName();
@@ -54,7 +64,7 @@ public class TaskPage extends BasePMPage {
             }
             
         }));
-        form.add(new DropDownChoice<>("sprint", new SprintService().retrieveAllSprints(), new ChoiceRenderer<Sprint>(){
+        form.add(new DropDownChoice<>("sprint", sprintService.retrieveAllSprints(), new ChoiceRenderer<Sprint>(){
             @Override
             public Object getDisplayValue(Sprint object) {
                 return object.getName();
@@ -65,7 +75,7 @@ public class TaskPage extends BasePMPage {
                 return String.valueOf(object.getId());
             }          
         }));
-        form.add(new DropDownChoice("status", new TaskService().getAvailableStatuses(), new ChoiceRenderer<Status>(){
+        form.add(new DropDownChoice("status", taskService.getAvailableStatuses(), new ChoiceRenderer<Status>(){
             @Override
             public Object getDisplayValue(Status object) {
                 return object.getName();
@@ -77,7 +87,7 @@ public class TaskPage extends BasePMPage {
             }          
         }));
         RepeatingView view = new RepeatingView("taskCommentses");
-        new CommentsService().retrieveComments().stream().forEach((tc) -> {
+        commentsService.retrieveComments().stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));
         });
         add(view);
