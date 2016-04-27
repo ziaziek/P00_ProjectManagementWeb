@@ -35,19 +35,18 @@ public class SprintPage extends BasePMPage {
         add(new TextField("endDate"));
         add(new TextField("timeAvailable"));
         add(new Label("timeElapsed", Model.of("24h")));
-        statusList = taskService.getAvailableStatuses();
         //instead of a single task panel, task panels for different sprint flows are rendered
-        add(new TasksListPanel("tasksList", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject()))));
+        renderSprintFlowTaskLists(model);
     }
     
     private void renderSprintFlowTaskLists(IModel<Sprint> model){
+        statusList = taskService.getAvailableStatuses();
         add(new TasksListPanel("tasksListToDo", new CompoundPropertyModel<>
                 (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("ToDo")).findAny().get()))));
         add(new TasksListPanel("tasksListInProgress", new CompoundPropertyModel<>
                 (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("In Progress")).findAny().get()))));
         add(new TasksListPanel("tasksListUnderReview", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Under Review")).findAny().get()))));
+                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Under review")).findAny().get()))));
         add(new TasksListPanel("tasksListDone", new CompoundPropertyModel<>
                 (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Done")).findAny().get()))));
     }

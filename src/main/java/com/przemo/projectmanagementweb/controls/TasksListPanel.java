@@ -7,10 +7,12 @@ package com.przemo.projectmanagementweb.controls;
 
 import com.przemo.projectmanagementweb.domain.Task;
 import java.util.List;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
  *
@@ -27,7 +29,7 @@ public class TasksListPanel extends Panel {
         
         add(tasksView);
         
-        
+        add(new Label("tasksCount", Model.of("Number of tasks: "+ model.getObject().size())));
     }
     
 }
