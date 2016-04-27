@@ -11,7 +11,6 @@ import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.domain.Users;
 import java.util.List;
-import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +34,24 @@ public class TaskService {
         return HibernateUtil.runQuery("select t from Task t left join fetch t.sprint left join fetch t.users");
     }
 
+    /**
+     * Builds a list of all tasks for the given sprint
+     * @param sprint
+     * @return 
+     */
     public List<Task> getTasksForSprint(Sprint sprint) {
         return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users where t.sprint.id="+sprint.getId());
+    }
+    
+    /**
+     * Build a list of tasks belonging to the sprint of the given status
+     * @param sprint
+     * @param status
+     * @return 
+     */
+    public List<Task> getTasksForSprint(Sprint sprint, Status status){
+        return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users where t.sprint.id="+sprint.getId()+
+                " and t.status.id="+status.getId());
     }
     
     public List<Task> getBacklogTasks(){
@@ -49,13 +64,11 @@ public class TaskService {
     }
 
     public List<Status> getAvailableStatuses() {
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        List<Status> ret = s.createQuery("from Status").list();
-        s.close();
-        return ret;
+        return HibernateUtil.runQuery("from Status");
     }
 
     public List getTaskTypes() {
         return HibernateUtil.runQuery("from TaskType");
     }
 }
+    

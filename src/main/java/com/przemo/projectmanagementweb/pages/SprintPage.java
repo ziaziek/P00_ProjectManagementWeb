@@ -7,7 +7,9 @@ package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
 import com.przemo.projectmanagementweb.domain.Sprint;
+import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.services.TaskService;
+import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -23,7 +25,9 @@ public class SprintPage extends BasePMPage {
 
     @SpringBean
     private TaskService taskService;
-     
+    
+    private List<Status> statusList;
+    
     public SprintPage(IModel<Sprint> model) {
         super(model);
         add(new Label("name"));
@@ -31,13 +35,21 @@ public class SprintPage extends BasePMPage {
         add(new TextField("endDate"));
         add(new TextField("timeAvailable"));
         add(new Label("timeElapsed", Model.of("24h")));
+        statusList = taskService.getAvailableStatuses();
         //instead of a single task panel, task panels for different sprint flows are rendered
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>
                 (taskService.getTasksForSprint(model.getObject()))));
     }
     
-    private void renderSprintFlowTaskLists(){
-        
+    private void renderSprintFlowTaskLists(IModel<Sprint> model){
+        add(new TasksListPanel("tasksListToDo", new CompoundPropertyModel<>
+                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("ToDo")).findAny().get()))));
+        add(new TasksListPanel("tasksListInProgress", new CompoundPropertyModel<>
+                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("In Progress")).findAny().get()))));
+        add(new TasksListPanel("tasksListUnderReview", new CompoundPropertyModel<>
+                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Under Review")).findAny().get()))));
+        add(new TasksListPanel("tasksListDone", new CompoundPropertyModel<>
+                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Done")).findAny().get()))));
     }
     
 }
