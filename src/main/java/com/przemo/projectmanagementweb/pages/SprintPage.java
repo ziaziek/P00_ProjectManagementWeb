@@ -31,8 +31,13 @@ public class SprintPage extends BasePMPage {
         add(new TextField("endDate"));
         add(new TextField("timeAvailable"));
         add(new Label("timeElapsed", Model.of("24h")));
+        //instead of a single task panel, task panels for different sprint flows are rendered
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>
                 (taskService.getTasksForSprint(model.getObject()))));
+    }
+    
+    private void renderSprintFlowTaskLists(){
+        
     }
     
 }
