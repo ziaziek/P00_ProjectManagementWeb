@@ -5,8 +5,10 @@
  */
 package com.przemo.projectmanagementweb.pages;
 
+import com.przemo.projectmanagementweb.services.LoginService;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
@@ -14,8 +16,19 @@ import org.apache.wicket.markup.html.link.Link;
  */
 public class HomePage extends WebPage {
 
+    @SpringBean
+    LoginService loginService;
+    
     public HomePage(){
-        add(new Link("sprintLink"){
+        if(!loginService.isLoggedIn()){
+            setResponsePage(LoginPage.class);
+        } else {
+            addMainPanel();
+        }
+    }
+    
+    private void addMainPanel(){
+            add(new Link("sprintLink"){
             @Override
             public void onClick() {
                 setResponsePage(SprintsListPage.class);
@@ -42,5 +55,5 @@ public class HomePage extends WebPage {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
-    }
+        }
 }

@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Przemo
 */
 
+body {
+    background-color: whitesmoke;
+}
+
 .nolink {
     text-decoration: none;
     color: #666666;
@@ -60,4 +64,20 @@ and open the template in the editor.
 p{
     margin-top: 38%;
     text-align: center;
+}
+
+.login_panel {
+    width: 50%;
+    height: 20%;
+    margin-left: 25%;
+    margin-top:15%;
+    background-color: lightslategray;
+    border: 1px solid black;
+}
+
+.login_status_panel {
+    width:210px;
+    height:80px;
+    background-color: antiquewhite;
+    border: 1px solid black;
 }
