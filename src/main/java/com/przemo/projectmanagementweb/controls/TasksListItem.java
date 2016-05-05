@@ -5,14 +5,17 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.pages.TaskPage;
 import com.przemo.projectmanagementweb.domain.Task;
+import com.przemo.projectmanagementweb.pages.TaskPage;
+import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
@@ -20,13 +23,16 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class TasksListItem extends Panel {
     
+    @SpringBean
+    TaskService taskService;
+    
     public TasksListItem(String id, IModel<Task> model) {
         super(id, model);
        
         Link l = new Link("link"){
             @Override
             public void onClick() {
-                setResponsePage(new TaskPage(model));
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(model.getObject().getId()))));
             }    
         };
         

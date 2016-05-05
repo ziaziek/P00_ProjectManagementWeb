@@ -13,14 +13,17 @@ import com.przemo.projectmanagementweb.domain.TaskType;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.visit.IVisit;
 
 /**
  *
@@ -39,7 +42,7 @@ public class TaskPage extends BasePMPage {
     
     public TaskPage(IModel<Task>model){
         super(model);
-        
+
         Form form = new Form("form"){
             @Override
             protected void onSubmit() {
@@ -63,7 +66,7 @@ public class TaskPage extends BasePMPage {
                 return String.valueOf(object.getId());
             }
             
-        }));
+        }).setEnabled(!ticketIsClosed(model.getObject())));
         form.add(new DropDownChoice<>("sprint", sprintService.retrieveAllSprints(), new ChoiceRenderer<Sprint>(){
             @Override
             public Object getDisplayValue(Sprint object) {
@@ -74,7 +77,7 @@ public class TaskPage extends BasePMPage {
             public String getIdValue(Sprint object, int index) {
                 return String.valueOf(object.getId());
             }          
-        }));
+        }).setEnabled(!ticketIsClosed(model.getObject())));
         form.add(new DropDownChoice("status", taskService.getAvailableStatuses(), new ChoiceRenderer<Status>(){
             @Override
             public Object getDisplayValue(Status object) {
@@ -92,5 +95,22 @@ public class TaskPage extends BasePMPage {
         });
         add(view);
         add(form);
+        //Form should be disabled if closed
+        if(ticketIsClosed(model.getObject())){
+           disableTaskForm(form, model); 
+        }      
     }
+    
+    private boolean ticketIsClosed(Task t){
+        return t.getStatus().getName().equals("Closed");
+    }
+    
+    private void disableTaskForm(Form form, IModel<Task> model){
+        form.visitFormComponents((Object t, IVisit ivisit) -> {
+            if(t instanceof TextField || t instanceof TextArea){
+                ((Component)t).setEnabled(false);
+            }
+        });
+    }
+    
 }

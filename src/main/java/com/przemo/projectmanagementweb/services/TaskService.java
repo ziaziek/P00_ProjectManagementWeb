@@ -30,6 +30,10 @@ public class TaskService {
         return t;
     }
 
+    public Task getTaskById(final int taskId){
+        return (Task) HibernateUtil.runQuery("select t from Task t left join fetch t.sprint left join fetch t.users join fetch t.status where t.id="+taskId).get(0);
+    }
+    
     public List<Task> getAllTasks() {
         return HibernateUtil.runQuery("select t from Task t left join fetch t.sprint left join fetch t.users");
     }
@@ -40,7 +44,7 @@ public class TaskService {
      * @return 
      */
     public List<Task> getTasksForSprint(Sprint sprint) {
-        return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users where t.sprint.id="+sprint.getId());
+        return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users  where t.sprint.id="+sprint.getId());
     }
     
     /**
@@ -50,7 +54,7 @@ public class TaskService {
      * @return 
      */
     public List<Task> getTasksForSprint(Sprint sprint, Status status){
-        return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users where t.sprint.id="+sprint.getId()+
+        return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users join fetch t.status where t.sprint.id="+sprint.getId()+
                 " and t.status.id="+status.getId());
     }
     

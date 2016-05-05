@@ -14,6 +14,8 @@ insert into status(name) values('ToDo');
 insert into status(name) values('In Progress');
 insert into status(name) values('Under review');
 insert into status(name) values('Done');
+insert into status(name) values('Closed');
+insert into status(name) values('Reopened');
 
 insert into task_type(name) values('Task');
 insert into task_type(name) values('Improvement');
