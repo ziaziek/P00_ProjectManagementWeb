@@ -2,12 +2,13 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="project_management" match-schema="public"/>
-  <table-filter match-name="task_type"/>
-  <table-filter match-name="role"/>
-  <table-filter match-name="users"/>
-  <table-filter match-name="sprint"/>
-  <table-filter match-name="time_log"/>
   <table-filter match-name="status"/>
+  <table-filter match-name="task_type"/>
   <table-filter match-name="task"/>
   <table-filter match-name="task_comments"/>
+  <table-filter match-name="users"/>
+  <table-filter match-name="time_log"/>
+  <table-filter match-name="sprint"/>
+  <table-filter match-name="projects"/>
+  <table-filter match-name="role"/>
 </hibernate-reverse-engineering>

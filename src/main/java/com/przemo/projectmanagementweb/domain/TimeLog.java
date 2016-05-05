@@ -1,5 +1,5 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-04-20 12:30:45 by Hibernate Tools 4.3.1
+// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,14 +11,14 @@ public class TimeLog  implements java.io.Serializable {
 
 
      private int id;
-     private Task task;
+     private int task;
      private double time;
      private Date date;
 
     public TimeLog() {
     }
 
-    public TimeLog(int id, Task task, double time, Date date) {
+    public TimeLog(int id, int task, double time, Date date) {
        this.id = id;
        this.task = task;
        this.time = time;
@@ -32,11 +32,11 @@ public class TimeLog  implements java.io.Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public Task getTask() {
+    public int getTask() {
         return this.task;
     }
     
-    public void setTask(Task task) {
+    public void setTask(int task) {
         this.task = task;
     }
     public double getTime() {

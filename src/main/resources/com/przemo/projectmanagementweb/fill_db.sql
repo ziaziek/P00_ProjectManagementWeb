@@ -4,6 +4,7 @@ truncate table sprint restart identity cascade;
 truncate table role restart identity cascade;
 truncate table task_type restart identity cascade;
 truncate table status restart identity cascade;
+truncate table projects restart identity cascade;
 
 insert into role(name) values('Developer');
 
@@ -24,7 +25,9 @@ insert into task_type(name) values('Feature');
 
 insert into users(role, email) values(1, 'ziaziek@poczta.fm');
 
-insert into task(task_type, title, description, estimated_time, real_time, assignee, sprint, status)
-values(4, 'Examplary task', 'This is an examplary task, just for the purposes of creating the application.', 4, 1.5, 1, 1, 1);
+insert into projects(name, startDate, owner) values('Project Management System', '2016-04-18', 1);
+
+insert into task(task_type, title, description, estimated_time, real_time, assignee, sprint, status, project)
+values(4, 'Examplary task', 'This is an examplary task, just for the purposes of creating the application.', 4, 1.5, 1, 1, 1, 1);
 
 insert into task_comments(task, author, date, comment) values(1, 1, '2016-04-24 15:24:00', 'This is an examplary comments to the examplary task.');

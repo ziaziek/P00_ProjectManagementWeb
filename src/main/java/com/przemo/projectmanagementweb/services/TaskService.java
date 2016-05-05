@@ -9,7 +9,6 @@ import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
-import com.przemo.projectmanagementweb.domain.Users;
 import java.util.List;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
@@ -20,15 +19,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TaskService {
-
-    public Task getOneTask(final String title) {
-        Task t = new Task();
-        t.setDescription("Task description");
-        t.setEstimatedTime(2);
-        t.setTitle("Task title " + title);
-        t.setUsers(new Users(1, null, "task@task.pl", null, null));
-        return t;
-    }
 
     public Task getTaskById(final int taskId){
         return (Task) HibernateUtil.runQuery("select t from Task t left join fetch t.sprint left join fetch t.users join fetch t.status where t.id="+taskId).get(0);

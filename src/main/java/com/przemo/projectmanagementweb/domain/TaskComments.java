@@ -1,5 +1,5 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-04-20 12:30:45 by Hibernate Tools 4.3.1
+// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,8 +11,8 @@ public class TaskComments  implements java.io.Serializable {
 
 
      private int id;
-     private Task task;
      private Users users;
+     private int task;
      private Date date;
      private String comment;
 
@@ -20,16 +20,16 @@ public class TaskComments  implements java.io.Serializable {
     }
 
 	
-    public TaskComments(int id, Task task, Users users, Date date) {
+    public TaskComments(int id, Users users, int task, Date date) {
         this.id = id;
-        this.task = task;
         this.users = users;
+        this.task = task;
         this.date = date;
     }
-    public TaskComments(int id, Task task, Users users, Date date, String comment) {
+    public TaskComments(int id, Users users, int task, Date date, String comment) {
        this.id = id;
-       this.task = task;
        this.users = users;
+       this.task = task;
        this.date = date;
        this.comment = comment;
     }
@@ -41,19 +41,19 @@ public class TaskComments  implements java.io.Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public Task getTask() {
-        return this.task;
-    }
-    
-    public void setTask(Task task) {
-        this.task = task;
-    }
     public Users getUsers() {
         return this.users;
     }
     
     public void setUsers(Users users) {
         this.users = users;
+    }
+    public int getTask() {
+        return this.task;
+    }
+    
+    public void setTask(int task) {
+        this.task = task;
     }
     public Date getDate() {
         return this.date;

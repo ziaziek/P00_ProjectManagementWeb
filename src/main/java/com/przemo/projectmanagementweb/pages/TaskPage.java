@@ -6,11 +6,13 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.CommentsItemControl;
+import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.domain.TaskType;
 import com.przemo.projectmanagementweb.services.CommentsService;
+import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.Component;
@@ -39,6 +41,9 @@ public class TaskPage extends BasePMPage {
     
     @SpringBean
     private SprintService sprintService;
+    
+    @SpringBean
+    private ProjectService projectsService;
     
     public TaskPage(IModel<Task>model){
         super(model);
@@ -89,6 +94,18 @@ public class TaskPage extends BasePMPage {
                 return String.valueOf(object.getId());
             }          
         }));
+        form.add(new DropDownChoice("project", projectsService.getAllProjects(), new ChoiceRenderer<Projects>(){
+            @Override
+            public Object getDisplayValue(Projects object) {
+                return object.getName();
+            }
+
+            @Override
+            public String getIdValue(Projects object, int index) {
+                return String.valueOf(object.getId());
+            } 
+        }).setEnabled(!ticketIsClosed(model.getObject())));
+        
         RepeatingView view = new RepeatingView("taskCommentses");
         commentsService.retrieveComments().stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));

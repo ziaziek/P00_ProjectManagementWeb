@@ -1,5 +1,5 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-04-20 12:30:45 by Hibernate Tools 4.3.1
+// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class Users  implements java.io.Serializable {
      private Role role;
      private String email;
      private Set taskCommentses = new HashSet(0);
+     private Set projectses = new HashSet(0);
      private Set tasks = new HashSet(0);
 
     public Users() {
@@ -24,11 +25,12 @@ public class Users  implements java.io.Serializable {
     public Users(int id) {
         this.id = id;
     }
-    public Users(int id, Role role, String email, Set taskCommentses, Set tasks) {
+    public Users(int id, Role role, String email, Set taskCommentses, Set projectses, Set tasks) {
        this.id = id;
        this.role = role;
        this.email = email;
        this.taskCommentses = taskCommentses;
+       this.projectses = projectses;
        this.tasks = tasks;
     }
    
@@ -59,6 +61,13 @@ public class Users  implements java.io.Serializable {
     
     public void setTaskCommentses(Set taskCommentses) {
         this.taskCommentses = taskCommentses;
+    }
+    public Set getProjectses() {
+        return this.projectses;
+    }
+    
+    public void setProjectses(Set projectses) {
+        this.projectses = projectses;
     }
     public Set getTasks() {
         return this.tasks;

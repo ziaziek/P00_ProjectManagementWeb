@@ -7,13 +7,14 @@
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.username">przemo</property>
     <property name="hibernate.connection.password">derek</property>
-    <mapping resource="com/przemo/projectmanagementweb/domain/Role.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/Status.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/TaskComments.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/Users.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/TaskType.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/TimeLog.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/Sprint.hbm.xml"/>
-    <mapping resource="com/przemo/projectmanagementweb/domain/Task.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Role.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Task.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Sprint.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/TaskType.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/TimeLog.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Status.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Projects.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/Users.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/TaskComments.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

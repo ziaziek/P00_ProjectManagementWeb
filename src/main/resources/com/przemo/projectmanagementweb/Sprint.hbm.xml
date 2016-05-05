@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2016-04-20 12:30:46 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
   <class name="com.przemo.projectmanagementweb.domain.Sprint" optimistic-lock="version" schema="public" table="sprint">
     <id name="id" type="int">
       <column name="id"/>
-      <generator class="identity"/>
+      <generator class="assigned"/>
     </id>
     <property name="name" type="string">
       <column length="50" name="name" not-null="true"/>
@@ -21,7 +21,7 @@
     </property>
     <set fetch="select" inverse="true" lazy="true" name="tasks" table="task">
       <key>
-        <column name="sprint" not-null="true"/>
+        <column name="sprint"/>
       </key>
       <one-to-many class="com.przemo.projectmanagementweb.domain.Task"/>
     </set>
