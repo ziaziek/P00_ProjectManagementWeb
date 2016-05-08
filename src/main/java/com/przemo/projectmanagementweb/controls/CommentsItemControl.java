@@ -17,7 +17,7 @@ import org.apache.wicket.model.IModel;
  */
 public class CommentsItemControl extends Panel {
     
-    public CommentsItemControl(String id, IModel<TaskComments> model) {
+    public CommentsItemControl(String id, final IModel<TaskComments> model) {
         super(id, model);
         add(new Label("users.email"));
         add(new Label("comment"));

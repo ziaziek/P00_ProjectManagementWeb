@@ -28,7 +28,7 @@ import org.apache.wicket.model.IModel;
  */
 public class TaskPage extends WebPage {
     
-    public TaskPage(IModel<Task>model){
+    public TaskPage(final IModel<Task>model){
         super(model);
         
         Form form = new Form("form"){

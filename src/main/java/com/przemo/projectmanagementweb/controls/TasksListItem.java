@@ -20,7 +20,7 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class TasksListItem extends Panel {
     
-    public TasksListItem(String id, IModel<Task> model) {
+    public TasksListItem(String id, final IModel<Task> model) {
         super(id, model);
        
         Link l = new Link("link"){
