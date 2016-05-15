@@ -135,4 +135,18 @@
         </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>remotedb</id>
+            <properties>
+                <db.connection>92.222.74.221</db.connection> 
+            </properties>
+        </profile>
+        <profile>
+            <id>localdb</id>
+            <properties>
+                <db.connection>localhost</db.connection>
+            </properties> 
+        </profile>
+    </profiles>
 </project>

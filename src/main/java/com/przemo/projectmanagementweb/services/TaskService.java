@@ -54,7 +54,6 @@ public class TaskService {
 
     public void saveTask(Task t) {
         HibernateUtil.saveObject(t);
-        Transaction tx = null;
     }
 
     public List<Status> getAvailableStatuses() {

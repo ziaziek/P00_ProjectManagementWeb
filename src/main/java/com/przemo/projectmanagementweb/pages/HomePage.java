@@ -49,10 +49,10 @@ public class HomePage extends WebPage {
             }
             
         });
-        add(new Link("adminLink"){
+        add(new Link("projectsLink"){
             @Override
             public void onClick() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                setResponsePage(ProjectsPage.class);
             }
         });
         }

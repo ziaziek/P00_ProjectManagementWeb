@@ -8,6 +8,7 @@ package com.przemo.projectmanagementweb.services;
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import java.util.List;
+import org.apache.wicket.model.IModel;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,5 +20,9 @@ public class ProjectService {
     
     public List<Projects> getAllProjects(){
         return HibernateUtil.runQuery("from Projects");
+    }
+
+    public void saveProject(Projects project) {
+        HibernateUtil.saveObject(project);
     }
 }
