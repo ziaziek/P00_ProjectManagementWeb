@@ -34,8 +34,8 @@ public class ProjectPage extends BasePMPage{
             
         };
         f.add(new TextField("name"));
-        f.add(new TextField("startDate"));
-        f.add(new TextField("endDate"));
+        f.add(new TextField("startdate"));
+        f.add(new TextField("enddate"));
         f.add(new TextArea("description"));
         add(f);
     }

@@ -8,11 +8,12 @@ package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.services.ProjectService;
-import java.util.List;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
@@ -25,16 +26,25 @@ public class ProjectsPage extends BasePMPage {
     private ProjectService projectService;
     
     public ProjectsPage(){
-        
-        List<Projects> ps = projectService.getAllProjects();
-        RepeatingView view = new RepeatingView("plist");
-        ps.stream().forEach(p->view.add(new Link(view.newChildId(), Model.of(p.getName())) {
+
+        ListView<Projects> view = new ListView("plist",projectService.getAllProjects() ) {
 
             @Override
-            public void onClick() {
-                setResponsePage(new ProjectPage(new CompoundPropertyModel<>(p)));
+            protected void populateItem(ListItem li) {
+                Link l = new Link("link"){
+
+                    @Override
+                    public void onClick() {
+                        setResponsePage(new ProjectPage(li.getModel()));
+                    }
+                    
+                };
+                l.add(new Label("name", new PropertyModel(li.getModel(), "name")));
+                li.add(l);
             }
-        }));
+
+
+        };
         add(view);
         add(new Link("new_project_link"){
 

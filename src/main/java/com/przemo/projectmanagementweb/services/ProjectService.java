@@ -8,7 +8,6 @@ package com.przemo.projectmanagementweb.services;
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import java.util.List;
-import org.apache.wicket.model.IModel;
 import org.springframework.stereotype.Service;
 
 /**
