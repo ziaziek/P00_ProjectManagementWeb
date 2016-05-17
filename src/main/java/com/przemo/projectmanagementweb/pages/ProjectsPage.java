@@ -35,7 +35,7 @@ public class ProjectsPage extends BasePMPage {
 
                     @Override
                     public void onClick() {
-                        setResponsePage(new ProjectPage(li.getModel()));
+                        setResponsePage(new ProjectPage(new CompoundPropertyModel<>(li.getModel())));
                     }
                     
                 };

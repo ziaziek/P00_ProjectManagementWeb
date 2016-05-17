@@ -37,10 +37,10 @@ public class ProjectPage extends BasePMPage{
             }
             
         };
-        f.add(new TextField("name", new PropertyModel(model, "name")));
-        f.add(new TextField("startdate", new PropertyModel(model, "startdate")));
-        f.add(new TextField("enddate", new PropertyModel(model, "enddate")));
-        f.add(new TextArea("description", new PropertyModel(model, "description")));
+        f.add(new TextField("name"));
+        f.add(new TextField("startdate"));
+        f.add(new TextField("enddate"));
+        f.add(new TextArea("description"));
         add(f);
     }
 }
