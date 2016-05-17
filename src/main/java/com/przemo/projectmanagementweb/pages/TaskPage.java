@@ -45,7 +45,7 @@ public class TaskPage extends BasePMPage {
     @SpringBean
     private ProjectService projectsService;
     
-    public TaskPage(IModel<Task>model){
+    public TaskPage(IModel<Task> model){
         super(model);
 
         Form form = new Form("form"){
@@ -94,7 +94,7 @@ public class TaskPage extends BasePMPage {
                 return String.valueOf(object.getId());
             }          
         }));
-        form.add(new DropDownChoice("project", projectsService.getAllProjects(), new ChoiceRenderer<Projects>(){
+        form.add(new DropDownChoice("projects", projectsService.getAllProjects(), new ChoiceRenderer<Projects>(){
             @Override
             public Object getDisplayValue(Projects object) {
                 return object.getName();

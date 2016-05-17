@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
@@ -25,18 +26,21 @@ public class ProjectPage extends BasePMPage{
     
     public ProjectPage(IModel<Projects> model){
         super(model);
-        Form f = new Form("project_form"){
 
+        Form f;
+        f = new Form("form"){
+            
             @Override
             protected void onSubmit() {
                 projectService.saveProject(model.getObject());
+                setResponsePage(HomePage.class);
             }
             
         };
-        f.add(new TextField("name"));
-        f.add(new TextField("startdate"));
-        f.add(new TextField("enddate"));
-        f.add(new TextArea("description"));
+        f.add(new TextField("name", new PropertyModel(model, "name")));
+        f.add(new TextField("startdate", new PropertyModel(model, "startdate")));
+        f.add(new TextField("enddate", new PropertyModel(model, "enddate")));
+        f.add(new TextArea("description", new PropertyModel(model, "description")));
         add(f);
     }
 }
