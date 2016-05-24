@@ -6,6 +6,8 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <link rel="stylesheet" href="../../../../../webapp/style.css" type="text/css"/>
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +28,13 @@ and open the template in the editor.
             Currently assigned to : <input wicket:id="users.email"/>
             <input type="submit" value="Save"/>
         </form>
+        <div>
+            Log time.<br/>
+            <!-- new entry -->
+            <div wicket:id="timelog_entry"></div>
+            <!-- List of existing entries -->
+            <div class="timelog_entries"></div>
+        </div>
         <div>
                 Comments: 
                 <div>

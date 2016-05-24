@@ -63,5 +63,6 @@ public class TaskService {
     public List getTaskTypes() {
         return HibernateUtil.runQuery("from TaskType");
     }
+    
 }
     
