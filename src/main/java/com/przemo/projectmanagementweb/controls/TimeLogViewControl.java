@@ -5,37 +5,39 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.domain.Users;
-import com.przemo.projectmanagementweb.pages.HomePage;
-import com.przemo.projectmanagementweb.services.LoginService;
+import com.przemo.projectmanagementweb.domain.TimeLog;
+import com.przemo.projectmanagementweb.pages.TimeLogEntryPage;
+import com.przemo.projectmanagementweb.services.TimeLogService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
  * @author Przemo
  */
-public class LoginStatusPanel extends Panel {
+public class TimeLogViewControl extends Panel{
     
     @SpringBean
-    LoginService loginService;
+    TimeLogService timeLogService;
     
-    
-    public LoginStatusPanel(String id, IModel<Users> model) {
+    public TimeLogViewControl(String id, IModel<TimeLog> model) {
         super(id, model);
-        add(new Label("email"));
-        add(new Label("lastLogin", Model.of("2016-04-12 12:54:00")));
-        add(new Link("logoutLink"){
+        add(new Label("time"));
+        add(new Label("date"));
+        add(new Link("editlink"){
             @Override
             public void onClick() {
-                loginService.logoutUser();
-                setResponsePage(HomePage.class);
+                setResponsePage(new TimeLogEntryPage(model));
             }
-            
+        });
+        add(new Link("deletelink"){
+            @Override
+            public void onClick() {
+                timeLogService.delete(model.getObject());
+            }
         });
     }
     

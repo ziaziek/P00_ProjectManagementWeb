@@ -36,4 +36,8 @@ public class TimeLogService {
     public Duration getTimeLoggedForSprint(int printId){
         return null;
     }
+
+    public void delete(TimeLog object) {
+        HibernateUtil.deleteObject(object);
+    }
 }

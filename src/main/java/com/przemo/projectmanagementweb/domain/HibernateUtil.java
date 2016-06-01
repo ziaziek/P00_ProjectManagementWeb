@@ -18,7 +18,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * @author Przemo
  */
 public class HibernateUtil {
-
+    
     private static final SessionFactory sessionFactory;
     
     static {
@@ -36,9 +36,10 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
     /**
      * Runs Hibernate query
+     *
      * @param qry
      * @return list of objects
      */
@@ -48,26 +49,49 @@ public class HibernateUtil {
         s.close();
         return l;
     }
-    
+
     /**
      * Saves or updates object
-     * @param obj 
+     *
+     * @param obj
      */
-    public static void saveObject(Object obj){
-        Session s = getSessionFactory().openSession();
-        //s.merge(obj);
-        Transaction tx = null;
-        try {
-            tx = s.beginTransaction();
-            s.saveOrUpdate(obj);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            org.slf4j.LoggerFactory.getLogger("Hibernate").error(e.getMessage());
-        } finally {
-            s.close();
-        }
+    public static void saveObject(Object obj) {
+        doTransactionalOperation(obj, OPERATION.SAVE);
     }
+    
+    public static void deleteObject(Object obj) {
+        doTransactionalOperation(obj, OPERATION.DELETE);
+        
+    }
+    
+    private static void doTransactionalOperation(Object obj, OPERATION op) {
+        if (obj != null && op != null) {
+            Session s = getSessionFactory().openSession();
+            Transaction tx = null;
+            try {
+                tx = s.beginTransaction();
+                switch (op) {
+                    case SAVE:
+                        s.saveOrUpdate(obj);
+                        break;
+                    case DELETE:
+                        s.delete(obj);
+                        break;
+                }
+                tx.commit();
+            } catch (Exception e) {
+                if (tx != null) {
+                    tx.rollback();
+                }
+                org.slf4j.LoggerFactory.getLogger("Hibernate").error(e.getMessage());
+            } finally {
+                s.close();
+            }
+        }
+        
+    }
+
+    private enum OPERATION {
+        SAVE, DELETE
+    };
 }

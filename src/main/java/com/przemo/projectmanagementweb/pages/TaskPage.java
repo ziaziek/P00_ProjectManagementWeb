@@ -16,6 +16,7 @@ import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -24,6 +25,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.visit.IVisit;
 
@@ -110,6 +112,9 @@ public class TaskPage extends BasePMPage {
         commentsService.retrieveComments().stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));
         });
+        
+        
+        add(new Label("timelog_entry", Model.of("Timelog Entry")));
         add(view);
         add(form);
         //Form should be disabled if closed
