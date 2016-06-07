@@ -29,8 +29,12 @@ public class TimeLogService {
     }
     
     public Duration getTimeLoggedForTask(int taskId){
-        int minutes = (int) (((double)HibernateUtil.runQuery("select sum(tl.time) from TimeLog tl where tl.task="+taskId).get(0))*60);
-        return Duration.of(minutes, ChronoUnit.MINUTES);
+        List<Double> t = HibernateUtil.runQuery("select sum(tl.time) from TimeLog tl where tl.task="+taskId);
+        if(t!=null && !t.isEmpty()&& t.get(0)!=null){
+            return Duration.of((int) ((t.get(0))*60), ChronoUnit.MINUTES);
+        } else {
+            return Duration.ZERO;
+        }
     }
     
     public Duration getTimeLoggedForSprint(int printId){

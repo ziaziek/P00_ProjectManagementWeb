@@ -5,8 +5,8 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.pages.SprintPage;
 import com.przemo.projectmanagementweb.domain.Sprint;
+import com.przemo.projectmanagementweb.pages.SprintPage;
 import com.przemo.projectmanagementweb.services.SprintService;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
@@ -31,7 +32,7 @@ public class SprintsListPanel extends Panel {
                 Link l = new Link("link", li.getModel()) {
                     @Override
                     public void onClick() {
-                        setResponsePage(new SprintPage(li.getModel()));
+                        setResponsePage(new SprintPage(new CompoundPropertyModel<>(li.getModel())));
                     }
                 };
                 l.add(new Label("name", new PropertyModel(li.getModel(), "name")));

@@ -8,10 +8,12 @@ package com.przemo.projectmanagementweb.pages;
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
+import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.services.TaskService;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -30,6 +32,14 @@ public class SprintPage extends BasePMPage {
     
     public SprintPage(IModel<Sprint> model) {
         super(model);
+        add(new Link("newtasklink"){
+            @Override
+            public void onClick() {
+                Task t = new Task();
+                t.setSprint(model.getObject());
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(t)));
+            }          
+        });
         add(new Label("name"));
         add(new TextField("startDate"));
         add(new TextField("endDate"));

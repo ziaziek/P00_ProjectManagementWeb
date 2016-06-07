@@ -6,11 +6,11 @@
 package com.przemo.projectmanagementweb.services;
 
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
+import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import java.util.List;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,6 +46,10 @@ public class TaskService {
     public List<Task> getTasksForSprint(Sprint sprint, Status status){
         return HibernateUtil.runQuery("select t from Task t join fetch t.sprint left join fetch t.users join fetch t.status where t.sprint.id="+sprint.getId()+
                 " and t.status.id="+status.getId());
+    }
+    
+    public List<Task> getTasksForProject(Projects project){
+        return HibernateUtil.runQuery("select t from Task t left join fetch t.sprint left join fetch t.users where t.projects.id="+project.getId());
     }
     
     public List<Task> getBacklogTasks(){

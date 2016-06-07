@@ -142,7 +142,7 @@ public class TaskPage extends BasePMPage {
     }
     
     private boolean ticketIsClosed(Task t){
-        return t.getStatus().getName().equals("Closed");
+        return t.getStatus()!=null && t.getStatus().getName().equals("Closed");
     }
     
     private void disableTaskForm(Form form, IModel<Task> model){

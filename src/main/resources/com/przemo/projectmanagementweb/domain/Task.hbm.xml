@@ -5,7 +5,9 @@
   <class name="com.przemo.projectmanagementweb.domain.Task" optimistic-lock="version" schema="public" table="task">
     <id name="id" type="int">
       <column name="id"/>
-      <generator class="assigned"/>
+      <generator class="sequence">
+          <param name="sequence">task_id_seq</param>
+      </generator>
     </id>
     <many-to-one class="com.przemo.projectmanagementweb.domain.Projects" fetch="select" name="projects">
       <column name="projects" not-null="true"/>
