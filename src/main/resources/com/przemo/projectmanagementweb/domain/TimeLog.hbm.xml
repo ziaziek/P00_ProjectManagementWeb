@@ -5,7 +5,9 @@
   <class name="com.przemo.projectmanagementweb.domain.TimeLog" optimistic-lock="version" schema="public" table="time_log">
     <id name="id" type="int">
       <column name="id"/>
-      <generator class="assigned"/>
+      <generator class="sequence">
+          <param name="sequence">time_log_id_seq</param>
+      </generator>
     </id>
     <property name="task" type="int">
       <column name="task" not-null="true"/>
@@ -13,7 +15,7 @@
     <property name="time" type="double">
       <column name="time" not-null="true" precision="17" scale="17"/>
     </property>
-    <property name="date" type="timestamp">
+    <property name="date" type="date">
       <column length="29" name="date" not-null="true"/>
     </property>
   </class>

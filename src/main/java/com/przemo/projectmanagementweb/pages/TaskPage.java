@@ -6,15 +6,18 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.CommentsItemControl;
+import com.przemo.projectmanagementweb.controls.TimeLogViewControl;
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.domain.TaskType;
+import com.przemo.projectmanagementweb.domain.TimeLog;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
+import com.przemo.projectmanagementweb.services.TimeLogService;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -22,6 +25,7 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -47,6 +51,9 @@ public class TaskPage extends BasePMPage {
     @SpringBean
     private ProjectService projectsService;
     
+    @SpringBean
+    private TimeLogService timeLogService;
+            
     public TaskPage(IModel<Task> model){
         super(model);
 
@@ -60,7 +67,7 @@ public class TaskPage extends BasePMPage {
         form.add(new TextField("title"));
         form.add(new TextField("description"));
         form.add(new TextField("estimatedTime"));
-        form.add(new TextField("realTime"));
+        form.add(new Label("summaryTime", Model.of(timeLogService.getTimeLoggedForTask(model.getObject().getId()).toHours()+ " hours")));
         form.add(new TextField("users.email"));
         form.add(new DropDownChoice("taskType", taskService.getTaskTypes(), new ChoiceRenderer<TaskType>(){
             @Override
@@ -112,10 +119,21 @@ public class TaskPage extends BasePMPage {
         commentsService.retrieveComments().stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));
         });
-        
-        
-        add(new Label("timelog_entry", Model.of("Timelog Entry")));
         add(view);
+        
+        RepeatingView timeView = new RepeatingView("timelog_entry");
+        timeLogService.getTimeLogs(model.getObject().getId()).stream().forEach((tl-> timeView.add(new TimeLogViewControl(timeView.newChildId(), 
+                new CompoundPropertyModel<>(tl)))));
+        add(timeView);
+        
+        add(new Link("newentrylink"){
+            @Override
+            public void onClick() {
+                setResponsePage(new TimeLogEntryPage(new CompoundPropertyModel<>(new TimeLog()), model.getObject().getId()));
+            }
+            
+        });
+        
         add(form);
         //Form should be disabled if closed
         if(ticketIsClosed(model.getObject())){

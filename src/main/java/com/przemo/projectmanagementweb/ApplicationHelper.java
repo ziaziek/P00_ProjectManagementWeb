@@ -17,4 +17,5 @@ public class ApplicationHelper {
     public static boolean isUserLoggedIn(Session session){
         return session.getAttribute(LoginService.USER_ATTRIBUTE)!=null;
     }
+
 }

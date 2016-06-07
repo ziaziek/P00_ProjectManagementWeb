@@ -6,11 +6,14 @@
 package com.przemo.projectmanagementweb.controls;
 
 import com.przemo.projectmanagementweb.domain.TimeLog;
+import com.przemo.projectmanagementweb.pages.TaskPage;
 import com.przemo.projectmanagementweb.pages.TimeLogEntryPage;
+import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -23,6 +26,9 @@ public class TimeLogViewControl extends Panel{
     @SpringBean
     TimeLogService timeLogService;
     
+    @SpringBean
+    TaskService taskService;
+    
     public TimeLogViewControl(String id, IModel<TimeLog> model) {
         super(id, model);
         add(new Label("time"));
@@ -30,13 +36,14 @@ public class TimeLogViewControl extends Panel{
         add(new Link("editlink"){
             @Override
             public void onClick() {
-                setResponsePage(new TimeLogEntryPage(model));
+                setResponsePage(new TimeLogEntryPage(model, model.getObject().getTask()));
             }
         });
         add(new Link("deletelink"){
             @Override
             public void onClick() {
                 timeLogService.delete(model.getObject());
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(model.getObject().getTask()))));
             }
         });
     }

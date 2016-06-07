@@ -1,5 +1,8 @@
 <wicket:extend>
-    Time log entry.
+    Time log entry for task <b><span wicket:id="task.name"></span></b>.
     
-    <span wicket:id="task.id"></span>
+    <form wicket:id="form">
+        Date: <input wicket:id="date"/>&nbsp;Time: <input wicket:id="time"/>
+        <input type="submit" value="Save"/>
+    </form>
 </wicket:extend>

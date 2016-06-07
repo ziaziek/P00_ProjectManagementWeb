@@ -6,8 +6,17 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.domain.TimeLog;
+import com.przemo.projectmanagementweb.services.TaskService;
+import com.przemo.projectmanagementweb.services.TimeLogService;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -15,16 +24,27 @@ import org.apache.wicket.model.IModel;
  */
 public class TimeLogEntryPage extends BasePMPage {
 
-    public TimeLogEntryPage() {
-        initPage();
-    }
-    
-    public TimeLogEntryPage(IModel<TimeLog> model){
+    @SpringBean
+    TimeLogService timeLogService;
+
+    @SpringBean
+    TaskService taskService;
+
+    public TimeLogEntryPage(IModel<TimeLog> model, int taskId) {
         super(model);
-        initPage();            
+        LoggerFactory.getLogger(getClass()).info("SBuilding time log entry page");
+        add(new Label("task.name", new PropertyModel(new Model(taskService.getTaskById(taskId)), "title")));
+        Form f = new Form("form") {
+            @Override
+            protected void onSubmit() {
+                model.getObject().setTask(taskId);
+                timeLogService.saveTimeLog(model.getObject());
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(taskId))));
+            }
+        };
+        f.add(new TextField("date", new PropertyModel(model, "date")));
+        f.add(new TextField("time"));
+        add(f);
     }
-    
-    private void initPage(){
-        add(new Label("task.id"));
-    }
+
 }

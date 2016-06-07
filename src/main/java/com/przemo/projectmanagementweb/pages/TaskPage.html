@@ -24,16 +24,14 @@ and open the template in the editor.
                 Description <br/><input wicket:id="description"/><br/>     
             </div>
             Estimated Time: <input wicket:id="estimatedTime"/>
-            Time logged: <input wicket:id="realTime"/><br/>
+            Time logged: <span wicket:id="summaryTime"></span><br/>
             Currently assigned to : <input wicket:id="users.email"/>
             <input type="submit" value="Save"/>
         </form>
         <div>
-            Log time.<br/>
-            <!-- new entry -->
-            <div wicket:id="timelog_entry"></div>
-            <!-- List of existing entries -->
-            <div class="timelog_entries"></div>
+            Time log.<br/>
+            <a wicket:id="newentrylink">Log Time</a>
+            <ul><li wicket:id="timelog_entry"></li></ul>
         </div>
         <div>
                 Comments: 
