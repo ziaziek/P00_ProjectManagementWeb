@@ -17,6 +17,22 @@ body {
     color: #666666;
 }
 
+.link_button_average {
+    padding: 5px 5px 5px 5px;
+    width:150px;
+    height:30px;
+    text-decoration: none;
+    text-align: center;
+    background-color: green;
+    border-left: 2px darkgreen solid;
+    border-top: 2px darkgreen solid;
+}
+
+.link_button_average a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
 .centralPanel {
     margin-left: 25%;
     margin-top: 10%;

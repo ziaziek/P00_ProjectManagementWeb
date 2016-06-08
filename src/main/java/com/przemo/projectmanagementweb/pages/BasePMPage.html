@@ -10,12 +10,17 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../../../../../webapp/style.css" type="text/css">
+
     </head>
     <body>
         <div wicket:id="loginStatusPanel"></div>
         <div wicket:id="feedback"></div>
         <wicket:child/>
         
-        <button><a class="nolink" wicket:id="homeButton">Back to Home Page</a></button>
+        <div class="link_button_average">
+          <a style='text-decoration: none' wicket:id="homeButton">Back to Home Page</a>  
+        </div>
+        
     </body>
 </html>
