@@ -5,15 +5,17 @@
   <class name="com.przemo.projectmanagementweb.domain.Sprint" optimistic-lock="version" schema="public" table="sprint">
     <id name="id" type="int">
       <column name="id"/>
-      <generator class="assigned"/>
+      <generator class="sequence">
+          <param name="sequence">sprint_id_seq</param>
+      </generator>
     </id>
     <property name="name" type="string">
       <column length="50" name="name" not-null="true"/>
     </property>
-    <property name="startDate" type="timestamp">
+    <property name="startDate" type="date">
       <column length="29" name="start_date" not-null="true"/>
     </property>
-    <property name="endDate" type="timestamp">
+    <property name="endDate" type="date">
       <column length="29" name="end_date" not-null="true"/>
     </property>
     <property name="timeAvailable" type="int">

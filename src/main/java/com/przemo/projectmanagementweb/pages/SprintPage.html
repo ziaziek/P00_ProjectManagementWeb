@@ -11,14 +11,18 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-    <wicket:extend>
-        <div>Sprint <span wicket:id="name"></span></div>
-        <div>
+    <wicket:extend> 
+        <form wicket:id="form">
+          <div>
+            Sprint: <input wicket:id="name"/>  
             Start date: <input wicket:id="startDate"/>
             End date:   <input wicket:id="endDate"/>
             Time for sprint: <input wicket:id="timeAvailable"/>
             Time elapsed: <span wicket:id="timeElapsed"></span>
         </div>
+            <input type="submit" value='Save'/>
+        </form>
+        
         <div>
             <a wicket:id="newtasklink">Add New Task for this Sprint</a>
         </div>

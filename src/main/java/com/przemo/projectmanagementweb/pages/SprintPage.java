@@ -9,9 +9,11 @@ import com.przemo.projectmanagementweb.controls.TasksListPanel;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
+import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -28,10 +30,21 @@ public class SprintPage extends BasePMPage {
     @SpringBean
     private TaskService taskService;
     
+    @SpringBean
+    private SprintService sprintService;
+    
     private List<Status> statusList;
     
     public SprintPage(IModel<Sprint> model) {
         super(model);
+        Form f = new Form("form"){
+            @Override
+            protected void onSubmit() {
+                sprintService.saveSprint(model.getObject());
+                success("Sprint saved successfully.");
+                //setResponsePage(SprintsListPage.class);
+            }
+        };
         add(new Link("newtasklink"){
             @Override
             public void onClick() {
@@ -40,11 +53,13 @@ public class SprintPage extends BasePMPage {
                 setResponsePage(new TaskPage(new CompoundPropertyModel<>(t)));
             }          
         });
-        add(new Label("name"));
-        add(new TextField("startDate"));
-        add(new TextField("endDate"));
-        add(new TextField("timeAvailable"));
-        add(new Label("timeElapsed", Model.of("24h")));
+        
+        f.add(new TextField("name"));
+        f.add(new TextField<>("startDate"));
+        f.add(new TextField("endDate"));
+        f.add(new TextField("timeAvailable"));
+        f.add(new Label("timeElapsed", Model.of("24h")));
+        add(f);
         //instead of a single task panel, task panels for different sprint flows are rendered
         renderSprintFlowTaskLists(model);
     }

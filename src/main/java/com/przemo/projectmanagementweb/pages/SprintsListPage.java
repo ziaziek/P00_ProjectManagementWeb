@@ -6,7 +6,9 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.SprintsListPanel;
+import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.services.SprintService;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -20,6 +22,12 @@ public class SprintsListPage extends BasePMPage {
     private SprintService sprintService;
     
     public SprintsListPage(){
+        add(new Link("newsprintlink"){
+            @Override
+            public void onClick() {
+                setResponsePage(new SprintPage(new CompoundPropertyModel<>(new Sprint())));
+            }
+        });
         add(new SprintsListPanel("sprintsList", new CompoundPropertyModel<>(sprintService.retrieveAllSprints())));
     }
 }

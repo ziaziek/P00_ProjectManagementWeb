@@ -8,7 +8,6 @@ package com.przemo.projectmanagementweb.services;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import java.util.List;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,7 +22,10 @@ public class SprintService {
     }
     
     public Sprint getSprint(final int id){
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        return (Sprint) s.load(Sprint.class, id);
+        return (Sprint) HibernateUtil.runQuery("from Sprint s where s.id="+id).get(0);
+    }
+
+    public void saveSprint(Sprint object) {
+        HibernateUtil.saveObject(object);
     }
 }
