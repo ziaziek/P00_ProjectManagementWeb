@@ -28,7 +28,7 @@ public class SprintsListPanel extends Panel {
         super(id, model);
         add(new ListView<Sprint>("sprintlistview", new SprintService().retrieveAllSprints()) {
             @Override
-            protected void populateItem(ListItem<Sprint> li) {
+            protected void populateItem(final ListItem<Sprint> li) {
                 Link l = new Link("link", li.getModel()) {
                     @Override
                     public void onClick() {
