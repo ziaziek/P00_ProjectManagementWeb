@@ -11,7 +11,9 @@ import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -66,14 +68,24 @@ public class SprintPage extends BasePMPage {
     
     private void renderSprintFlowTaskLists(IModel<Sprint> model){
         statusList = taskService.getAvailableStatuses();
+        
         add(new TasksListPanel("tasksListToDo", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("ToDo")).findAny().get()))));
+                (filterTasksByStatus(model, "ToDo"))));
         add(new TasksListPanel("tasksListInProgress", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("In Progress")).findAny().get()))));
+                (filterTasksByStatus(model, "In Progress"))));
         add(new TasksListPanel("tasksListUnderReview", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Under review")).findAny().get()))));
+                (filterTasksByStatus(model, "Under Review"))));
         add(new TasksListPanel("tasksListDone", new CompoundPropertyModel<>
-                (taskService.getTasksForSprint(model.getObject(), statusList.stream().filter(o->o.getName().equals("Done")).findAny().get()))));
+                (filterTasksByStatus(model, "Done"))));
+    }
+    
+    private List<Task> filterTasksByStatus(final IModel<Sprint> model, final String status){
+        Optional res = statusList.stream().filter(o->o.getName().equals(status)).findAny();
+        if (res.isPresent()){
+            return taskService.getTasksForSprint(model.getObject(), (Status) res.get());
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
     
 }
