@@ -65,7 +65,7 @@ public class TaskPage extends BasePMPage {
             }
         };
         form.add(new TextField("title"));
-        form.add(new TextField("description"));
+        form.add(new TextArea("description"));
         form.add(new TextField("estimatedTime"));
         form.add(new Label("summaryTime", Model.of(timeLogService.getTimeLoggedForTask(model.getObject().getId()).toHours()+ " hours")));
         form.add(new TextField("users.email"));
