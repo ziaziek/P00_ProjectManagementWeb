@@ -50,6 +50,13 @@ public class HibernateUtil {
         return l;
     }
 
+    public static List runSQLQuery(final String qry){
+        Session s = getSessionFactory().openSession();
+        List l = s.createSQLQuery(qry).list();
+        s.close();
+        return l;
+    }
+    
     /**
      * Saves or updates object
      *

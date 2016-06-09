@@ -11,6 +11,7 @@ import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
+import com.przemo.projectmanagementweb.services.TimeLogService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,9 @@ public class SprintPage extends BasePMPage {
     
     @SpringBean
     private SprintService sprintService;
+    
+    @SpringBean
+    private TimeLogService timeLogService;
     
     private List<Status> statusList;
     
@@ -60,7 +64,7 @@ public class SprintPage extends BasePMPage {
         f.add(new TextField<>("startDate"));
         f.add(new TextField("endDate"));
         f.add(new TextField("timeAvailable"));
-        f.add(new Label("timeElapsed", Model.of("24h")));
+        f.add(new Label("timeElapsed", Model.of(timeLogService.getTimeLoggedForSprint(model.getObject().getId()))));
         add(f);
         //instead of a single task panel, task panels for different sprint flows are rendered
         renderSprintFlowTaskLists(model);

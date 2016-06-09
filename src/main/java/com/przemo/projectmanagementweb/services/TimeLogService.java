@@ -37,8 +37,9 @@ public class TimeLogService {
         }
     }
     
-    public Duration getTimeLoggedForSprint(int printId){
-        return null;
+    public double getTimeLoggedForSprint(int printId){
+        String qry = "select pr_get_hours_for_sprint("+printId+")";
+        return (double) HibernateUtil.runSQLQuery(qry).get(0);
     }
 
     public void delete(TimeLog object) {
