@@ -29,6 +29,7 @@ public class CommentEditPage extends BasePMPage {
             @Override
             protected void onSubmit() {
                 commentsService.saveComment(model.getObject());
+                success("Comments saved successfully.");
             }
             
         };

@@ -11,6 +11,7 @@ import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
+import com.przemo.projectmanagementweb.domain.TaskComments;
 import com.przemo.projectmanagementweb.domain.TaskType;
 import com.przemo.projectmanagementweb.domain.TimeLog;
 import com.przemo.projectmanagementweb.services.CommentsService;
@@ -18,6 +19,7 @@ import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
+import java.util.Date;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -53,6 +55,7 @@ public class TaskPage extends BasePMPage {
     
     @SpringBean
     private TimeLogService timeLogService;
+    
             
     public TaskPage(IModel<Task> model){
         super(model);
@@ -116,7 +119,7 @@ public class TaskPage extends BasePMPage {
         }).setEnabled(!ticketIsClosed(model.getObject())));
         
         RepeatingView view = new RepeatingView("taskCommentses");
-        commentsService.retrieveComments().stream().forEach((tc) -> {
+        commentsService.getCommentsForTask(model.getObject().getId()).stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));
         });
         add(view);
@@ -132,6 +135,17 @@ public class TaskPage extends BasePMPage {
                 setResponsePage(new TimeLogEntryPage(new CompoundPropertyModel<>(new TimeLog()), model.getObject().getId()));
             }
             
+        });
+        
+        add(new Link("newcommentslink"){
+            @Override
+            public void onClick() {
+                TaskComments tc = new TaskComments();
+                tc.setTask(model.getObject().getId());
+                tc.setUsers(getCurrentUser());
+                tc.setDate(new Date());
+                setResponsePage(new CommentEditPage(new CompoundPropertyModel<>(tc)));
+            }         
         });
         
         add(form);

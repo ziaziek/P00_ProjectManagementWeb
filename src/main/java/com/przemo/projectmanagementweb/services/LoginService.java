@@ -5,7 +5,9 @@
  */
 package com.przemo.projectmanagementweb.services;
 
+import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Users;
+import java.io.Serializable;
 import org.apache.wicket.Session;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class LoginService {
     
     public boolean login(final String username, final String password) {
         if (USERNAME.equals(username) && PASSWORD.equals(password)) {
-            Session.get().setAttribute(USER_ATTRIBUTE, username);
+            Session.get().setAttribute(USER_ATTRIBUTE, (Serializable) HibernateUtil.runQuery("from Users where id=1").get(0));
             Session.get().bind();
             return true;
         } else {
@@ -36,12 +38,10 @@ public class LoginService {
     }
     
     public Users getLoggedInUser(){
-        Users u = null;
         if(isLoggedIn()){
-            u = new Users();
-            u.setEmail(Session.get().getAttribute(USER_ATTRIBUTE).toString());
+            return (Users) Session.get().getAttribute(USER_ATTRIBUTE);
         }
-        return u;
+        return null;
     }
     
     public void logoutUser(){
