@@ -149,6 +149,7 @@ public class TaskPage extends BasePMPage {
         });
         
         add(form);
+        add(new Label("id", Model.of(model.getObject().getId()>0? "Task No. "+model.getObject().getId() : "")));
         //Form should be disabled if closed
         if(ticketIsClosed(model.getObject())){
            disableTaskForm(form, model); 
