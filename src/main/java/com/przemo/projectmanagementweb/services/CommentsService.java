@@ -43,4 +43,8 @@ public class CommentsService {
     public void saveComment(TaskComments comments){
         HibernateUtil.saveObject(comments);
     }
+
+    public void delete(TaskComments object) {
+        HibernateUtil.deleteObject(object);
+    }
 }
