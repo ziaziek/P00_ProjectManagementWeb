@@ -11,6 +11,7 @@ import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
+import com.przemo.projectmanagementweb.domain.TaskComments;
 import com.przemo.projectmanagementweb.domain.TaskType;
 import com.przemo.projectmanagementweb.domain.TimeLog;
 import com.przemo.projectmanagementweb.services.CommentsService;
@@ -18,6 +19,7 @@ import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
+import java.util.Date;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -53,6 +55,7 @@ public class TaskPage extends BasePMPage {
     
     @SpringBean
     private TimeLogService timeLogService;
+    
             
     public TaskPage(IModel<Task> model){
         super(model);
@@ -65,7 +68,7 @@ public class TaskPage extends BasePMPage {
             }
         };
         form.add(new TextField("title"));
-        form.add(new TextField("description"));
+        form.add(new TextArea("description"));
         form.add(new TextField("estimatedTime"));
         form.add(new Label("summaryTime", Model.of(timeLogService.getTimeLoggedForTask(model.getObject().getId()).toHours()+ " hours")));
         form.add(new TextField("users.email"));
@@ -116,7 +119,7 @@ public class TaskPage extends BasePMPage {
         }).setEnabled(!ticketIsClosed(model.getObject())));
         
         RepeatingView view = new RepeatingView("taskCommentses");
-        commentsService.retrieveComments().stream().forEach((tc) -> {
+        commentsService.getCommentsForTask(model.getObject().getId()).stream().forEach((tc) -> {
             view.add(new CommentsItemControl(view.newChildId(), new CompoundPropertyModel<>(tc)));
         });
         add(view);
@@ -134,7 +137,19 @@ public class TaskPage extends BasePMPage {
             
         });
         
+        add(new Link("newcommentslink"){
+            @Override
+            public void onClick() {
+                TaskComments tc = new TaskComments();
+                tc.setTask(model.getObject().getId());
+                tc.setUsers(getCurrentUser());
+                tc.setDate(new Date());
+                setResponsePage(new CommentEditPage(new CompoundPropertyModel<>(tc)));
+            }         
+        });
+        
         add(form);
+        add(new Label("id", Model.of(model.getObject().getId()>0? "Task No. "+model.getObject().getId() : "")));
         //Form should be disabled if closed
         if(ticketIsClosed(model.getObject())){
            disableTaskForm(form, model); 

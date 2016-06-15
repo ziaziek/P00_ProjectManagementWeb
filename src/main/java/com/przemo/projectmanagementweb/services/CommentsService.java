@@ -5,6 +5,7 @@
  */
 package com.przemo.projectmanagementweb.services;
 
+import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.TaskComments;
 import com.przemo.projectmanagementweb.domain.Users;
 import java.util.ArrayList;
@@ -35,7 +36,15 @@ public class CommentsService {
         return ret;
     }
     
+    public List<TaskComments> getCommentsForTask(int taskId){
+        return HibernateUtil.runQuery("from TaskComments tc join fetch tc.users where tc.task="+taskId);
+    }
+    
     public void saveComment(TaskComments comments){
-        
+        HibernateUtil.saveObject(comments);
+    }
+
+    public void delete(TaskComments object) {
+        HibernateUtil.deleteObject(object);
     }
 }

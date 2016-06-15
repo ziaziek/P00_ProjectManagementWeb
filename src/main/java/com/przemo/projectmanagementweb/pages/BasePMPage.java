@@ -6,6 +6,7 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.LoginStatusPanel;
+import com.przemo.projectmanagementweb.domain.Users;
 import com.przemo.projectmanagementweb.services.LoginService;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
@@ -33,6 +34,10 @@ public class BasePMPage extends WebPage {
     public BasePMPage(IModel model) {
         super(model);
         initPage();
+    }
+    
+    protected Users getCurrentUser(){
+        return loginService.getLoggedInUser();
     }
     
     private void initPage() {

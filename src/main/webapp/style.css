@@ -73,13 +73,12 @@ body {
     list-style: none;
 }
 
-.centralPanel li {
-    display: inline-table;
-}
-
-p{
+.home_panels{
     margin-top: 38%;
     text-align: center;
+}
+.centralPanel li {
+    display: inline-table;
 }
 
 .login_panel {
