@@ -100,3 +100,9 @@ body {
 .timelog_entries {
 
 }
+
+.tasks_list_panel{
+    height: 450px;
+    width:50%;
+    overflow-y: auto;
+}
