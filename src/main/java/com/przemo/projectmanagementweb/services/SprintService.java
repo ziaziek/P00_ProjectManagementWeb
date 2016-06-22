@@ -7,6 +7,7 @@ package com.przemo.projectmanagementweb.services;
 
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
+import java.math.BigInteger;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,14 @@ public class SprintService {
 
     public void saveSprint(Sprint object) {
         HibernateUtil.saveObject(object);
+    }
+    
+    public BigInteger getAvailableTime(Sprint s){
+        List<BigInteger> l = HibernateUtil.runSQLQuery("select sum(estimated_time) from task where sprint="+s.getId());
+        if(!l.isEmpty()&& l.get(0)!=null){
+            return l.get(0);
+        } else {
+            return new BigInteger("0");
+        }   
     }
 }

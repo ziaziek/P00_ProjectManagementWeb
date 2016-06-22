@@ -19,6 +19,7 @@ import com.przemo.projectmanagementweb.services.ProjectService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
+import java.time.Duration;
 import java.util.Date;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
@@ -60,6 +61,8 @@ public class TaskPage extends BasePMPage {
     public TaskPage(IModel<Task> model){
         super(model);
 
+        Duration timeLogged = timeLogService.getTimeLoggedForTask(model.getObject().getId());
+        long minutes = timeLogged.toMinutes() - timeLogged.toHours()*60;
         Form form = new Form("form"){
             @Override
             protected void onSubmit() {
@@ -70,7 +73,7 @@ public class TaskPage extends BasePMPage {
         form.add(new TextField("title"));
         form.add(new TextArea("description"));
         form.add(new TextField("estimatedTime"));
-        form.add(new Label("summaryTime", Model.of(timeLogService.getTimeLoggedForTask(model.getObject().getId()).toHours()+ " hours")));
+        form.add(new Label("summaryTime", Model.of(timeLogged.toHours()+ " hours, "+minutes+" minutes.")));
         form.add(new TextField("users.email"));
         form.add(new DropDownChoice("taskType", taskService.getTaskTypes(), new ChoiceRenderer<TaskType>(){
             @Override
