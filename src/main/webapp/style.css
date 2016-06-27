@@ -26,6 +26,7 @@ body {
     background-color: green;
     border-left: 2px darkgreen solid;
     border-top: 2px darkgreen solid;
+    cursor: pointer;
 }
 
 .link_button_average a{

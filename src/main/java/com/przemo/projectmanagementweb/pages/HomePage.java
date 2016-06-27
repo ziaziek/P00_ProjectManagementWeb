@@ -19,6 +19,8 @@ public class HomePage extends WebPage {
     @SpringBean
     LoginService loginService;
     
+    
+    
     public HomePage(){
         if(!loginService.isLoggedIn()){
             setResponsePage(LoginPage.class);

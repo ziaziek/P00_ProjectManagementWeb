@@ -34,7 +34,7 @@ public class BasePMPage extends WebPage {
     public BasePMPage(IModel model) {
         super(model);
         initPage();
-    }
+    }   
     
     protected Users getCurrentUser(){
         return loginService.getLoggedInUser();
@@ -51,7 +51,7 @@ public class BasePMPage extends WebPage {
                     setResponsePage(HomePage.class);
                 }
                 
-            });            
+            });
         } else {
             setResponsePage(LoginPage.class);
         }
