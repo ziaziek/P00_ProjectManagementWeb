@@ -26,6 +26,7 @@ body {
     background-color: green;
     border-left: 2px darkgreen solid;
     border-top: 2px darkgreen solid;
+    cursor: pointer;
 }
 
 .link_button_average a{
@@ -99,4 +100,11 @@ body {
 
 .timelog_entries {
 
+}
+
+.tasks_list_panel{
+    max-height: 450px;
+    width:50%;
+    overflow-y: auto;
+    margin: 10px;
 }
