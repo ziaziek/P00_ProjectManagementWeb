@@ -197,7 +197,7 @@ ul#nav li.current a, ul#nav li:hover a
   margin: 0 20px 10px 0;}
   
 .content_container
-{ width: 500px;
+{ width: 940px;
   padding: 5px;
   margin: 20px 10px 0 0;
   float: left;}
@@ -262,7 +262,7 @@ footer a, footer a:hover
   color: #47433F;
   margin: 28px 0;}
 
-.form_settings .submit
+.form_settings input .submit
 { font: 100% arial; 
   border: 1px solid #FFF; 
   width: 99px; 

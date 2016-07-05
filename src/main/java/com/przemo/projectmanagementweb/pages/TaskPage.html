@@ -14,7 +14,7 @@ and open the template in the editor.
     </head>
     <body>
     <wicket:extend>
-        <h3><span wicket:id="id"></span></h3>
+        <h3><label wicket:id="id"></label></h3>
         <form wicket:id="form"> 
            <h3><input wicket:id="title"></h3> 
             Belongs to sprint: <select wicket:id="sprint"></select>
@@ -25,9 +25,9 @@ and open the template in the editor.
                 Description <br/><textarea style="width: 95%; height:50px" wicket:id="description"></textarea><br/>     
             </div>
             Estimated Time: <input wicket:id="estimatedTime"/>
-            Time logged: <span wicket:id="summaryTime"></span><br/>
+            Time logged: <label wicket:id="summaryTime"></label><br/>
             Currently assigned to : <input wicket:id="users.email"/>
-            <input type="submit" value="Save"/>
+            <input class="submit" type="submit" value="Save"/>
         </form>
         <div>
             Time log.<br/>
