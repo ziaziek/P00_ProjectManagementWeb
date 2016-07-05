@@ -12,13 +12,18 @@ and open the template in the editor.
     </head>
     <body>
     <wicket:extend> 
-        <form wicket:id="form">
+        <form wicket:id="form" class="form_settings">
           <div>
             Sprint: <input wicket:id="name"/>  
             Start date: <input wicket:id="startDate"/>
             End date:   <input wicket:id="endDate"/>
-            Time for sprint: <span wicket:id="timeAvailable"></span> hours &nbsp;
-            Time elapsed: <span wicket:id="timeElapsed"></span> hours &nbsp;
+            <p>
+              Time for sprint: <span wicket:id="timeAvailable"></span> hours &nbsp;  
+            </p>
+            <p>
+              Time elapsed: <span wicket:id="timeElapsed"></span> hours &nbsp;  
+            </p>
+            
         </div>
             <input type="submit" value='Save'/>
         </form>

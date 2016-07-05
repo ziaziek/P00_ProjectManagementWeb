@@ -9,21 +9,55 @@ and open the template in the editor.
         <title>Project Management</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="style.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="../../../../../webapp/style.css" type="text/css">
+        <link href="css/local_style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/image_slide.js" type="text/javascript"></script>
+        <script src="js/modernizr-1.5.min.js" type="text/javascript"></script>
         <script src="js/main.js" type="text/javascript"></script>
     </head>
     <body>
-        <div wicket:id="loginStatusPanel"></div>
-        <div wicket:id="feedback"></div>
-        <wicket:child/>
-        
-        <div class="link_button_average">
-          <a style='text-decoration: none' wicket:id="homeButton">Back to Home Page</a>  
+        <div id="main">
+
+            <header>
+                <div id="welcome">
+                    <h2>Project Management System PNComp</h2>
+                </div><!--close welcome-->			  	
+            </header>
+
+            <nav>
+                <div id="menubar">
+                    <ul id="nav">
+                        <li class="current"><a href="index.html">Home</a></li>
+                        <li><a href="ourwork.html">Our Work</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                    <div wicket:id="loginStatusPanel"></div>
+                </div><!--close menubar-->	
+            </nav>
+
+            <div id="site_content">		
+                
+                <div class="slideshow">
+                    <ul class="slideshow">
+                        <li class="show"><img width="940" height="300" src="images/home_1.jpg" alt="Project Management System" /></li>
+                        <li><img width="940" height="300" src="images/home_2.jpg" alt="Release 20160628" /></li>
+                    </ul> 
+                </div><!--close slideshow-->	
+                <div class="content_container">
+                    <div wicket:id="feedback"></div>
+                        <wicket:child/>
+                  <div class="button_small">
+                    <a style='text-decoration: none' wicket:id="homeButton">Back to Home Page</a>  
+                </div>
+                <div class="button_small">
+                    <a style='text-decoration: none' onclick="goback();">Back</a>  
+                </div>        
+                </div>    
+            </div>
+
         </div>
-        <div class="link_button_average">
-          <a style='text-decoration: none' onclick="goback();">Back</a>  
-        </div>
-        
     </body>
 </html>
