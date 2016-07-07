@@ -16,32 +16,34 @@ and open the template in the editor.
     </head>
     <body>
         <div id="header-wrapper">
-        <div wicket:id="loginStatusPanel"></div>       
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><a href="#">Project Management System</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-				<li><a href="#" accesskey="2" title="">Sprints</a></li>
-				<li><a href="#" accesskey="3" title="">Tasks</a></li>
-				<li><a href="#" accesskey="4" title="">Backlog</a></li>
-				<li><a href="#" accesskey="5" title="">Projects</a></li>
-			</ul>
-		</div>        
-	</div>       
-</div>
-        
-        <div wicket:id="feedback"></div>
-        <wicket:child/>
-        
-        <div>
-          <a style='text-decoration: none' wicket:id="homeButton">Back to Home Page</a>  
+            <div wicket:id="loginStatusPanel"></div>       
+            <div id="header" class="container">
+                <div id="logo">
+                    <h1><a href="#">Project Management System</a></h1>
+                </div>
+                <div id="menu" wicket:id="topMenu">
+                    <a wicket:id="link"><span wicket:id="linkText"></span></a>
+                    <!--
+                    <ul>
+                        <li><a href="#" accesskey="1" title="">Homepage</a></li>
+                        <li><a href="#" accesskey="2" title="">Sprints</a></li>
+                        <li><a href="#" accesskey="3" title="">Tasks</a></li>
+                        <li><a href="#" accesskey="4" title="">Backlog</a></li>
+                        <li><a href="#" accesskey="5" title="">Projects</a></li>
+                    </ul>
+                    -->
+                </div>        
+            </div>       
         </div>
-        <div>
-          <a style='text-decoration: none' onclick="goback();">Back</a>  
+        <div id="wrapper">
+            <div id="page" class="container">
+                <div wicket:id="feedback"></div>
+                <wicket:child/>      
+                <br/>
+                <div>
+                    <a class="button" onclick="goback();">Back</a>  
+                </div> 
+            </div>
         </div>
-        
     </body>
 </html>
