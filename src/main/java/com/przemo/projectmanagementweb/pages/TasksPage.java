@@ -30,4 +30,9 @@ public class TasksPage extends BasePMPage {
         });
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(taskService.getAllTasks())));
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return this.getClass();
+    }
 }

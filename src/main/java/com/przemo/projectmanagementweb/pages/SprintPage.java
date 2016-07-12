@@ -91,5 +91,10 @@ public class SprintPage extends BasePMPage {
             return Collections.EMPTY_LIST;
         }
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return SprintsListPage.class;
+    }
     
 }

@@ -47,4 +47,9 @@ public class TimeLogEntryPage extends BasePMPage {
         add(f);
     }
 
+    @Override
+    protected Class getCurrentMenuClass() {
+        return TasksPage.class;
+    }
+
 }

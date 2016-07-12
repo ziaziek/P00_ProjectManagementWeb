@@ -30,4 +30,9 @@ public class SprintsListPage extends BasePMPage {
         });
         add(new SprintsListPanel("sprintsList", new CompoundPropertyModel<>(sprintService.retrieveAllSprints())));
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return this.getClass();
+    }
 }

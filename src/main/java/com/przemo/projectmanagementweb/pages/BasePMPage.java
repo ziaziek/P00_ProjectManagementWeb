@@ -66,20 +66,22 @@ public abstract class BasePMPage extends WebPage {
 
             @Override
             protected void populateItem(ListItem<MenuItem> li) {
-                if (getClass().equals(li.getModel().getObject().menuClass)) {
+                if (getCurrentMenuClass().equals(li.getModel().getObject().menuClass)) {
                     li.add(new AttributeModifier("class", Model.of("current_page_item")));
                 }
+                final Class cl = li.getModel().getObject().menuClass;
                 li.add(new Link("link") {
                     @Override
                     public void onClick() {
-                        setResponsePage(li.getModel().getObject().menuClass);
+                        setResponsePage(cl);
                     }
-                });
-                li.add(new Label("linkText", Model.of(li.getModel().getObject().menuWicketId)));
+                }.add(new Label("linkText", Model.of(li.getModel().getObject().menuWicketId))));
             }
         }
         );
     }
+    
+    protected abstract Class getCurrentMenuClass();
 
     private IModel getMenuModel() {
         List<MenuItem> menuList = new ArrayList();

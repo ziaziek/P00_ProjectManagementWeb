@@ -22,4 +22,9 @@ public class BacklogPage extends BasePMPage {
     public BacklogPage(){
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(taskService.getBacklogTasks())));
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return this.getClass();
+    }
 }

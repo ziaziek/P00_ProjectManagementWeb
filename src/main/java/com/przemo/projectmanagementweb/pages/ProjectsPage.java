@@ -55,4 +55,9 @@ public class ProjectsPage extends BasePMPage {
             
         });
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return this.getClass();
+    }
 }

@@ -59,4 +59,9 @@ public class ProjectPage extends BasePMPage{
         });
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(taskService.getTasksForProject(model.getObject()))));
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return ProjectsPage.class;
+    }
 }

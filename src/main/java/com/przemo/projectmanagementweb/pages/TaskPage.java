@@ -170,5 +170,10 @@ public class TaskPage extends BasePMPage {
             }
         });
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return TasksPage.class;
+    }
     
 }
