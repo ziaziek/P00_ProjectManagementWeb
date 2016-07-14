@@ -132,6 +132,13 @@
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>src/main/webapp/WEB-INF</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>*.*</include>
+                </includes>
+            </resource>
         </resources>
     </build>
 
@@ -147,6 +154,19 @@
             <properties>
                 <db.connection>localhost</db.connection>
             </properties> 
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <deployment.mode>deployment</deployment.mode>
+            </properties>        
+        </profile>
+        <profile>
+            <id>development</id>
+            <properties>
+                <deployment.mode>development</deployment.mode> 
+            </properties>
+            
         </profile>
     </profiles>
 </project>
