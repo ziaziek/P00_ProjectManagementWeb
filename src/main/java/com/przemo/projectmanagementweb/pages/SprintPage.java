@@ -54,7 +54,7 @@ public class SprintPage extends BasePMPage {
         add(new Link("newtasklink"){
             @Override
             public void onClick() {
-                Task t = new Task();
+                Task t = taskService.createNewTask();
                 t.setSprint(model.getObject());
                 setResponsePage(new TaskPage(new CompoundPropertyModel<>(t)));
             }          
