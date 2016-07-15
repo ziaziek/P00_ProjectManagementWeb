@@ -6,7 +6,6 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
-import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -24,10 +23,15 @@ public class TasksPage extends BasePMPage {
         add(new Link("newtasklink"){
             @Override
             public void onClick() {
-                setResponsePage(new TaskPage(new CompoundPropertyModel<>(new Task())));
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.createNewTask())));
             }
             
         });
         add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(taskService.getAllTasks())));
+    }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return this.getClass();
     }
 }

@@ -66,8 +66,11 @@ public class TaskPage extends BasePMPage {
         Form form = new Form("form"){
             @Override
             protected void onSubmit() {
-                taskService.saveTask(model.getObject());
-                setResponsePage(HomePage.class);
+                if(taskService.saveTask(model.getObject())==0){
+                   success("Task saved.");
+                } else {
+                    error("Task could not be saved.");
+                }  
             }
         };
         form.add(new TextField("title"));
@@ -169,6 +172,11 @@ public class TaskPage extends BasePMPage {
                 ((Component)t).setEnabled(false);
             }
         });
+    }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return TasksPage.class;
     }
     
 }

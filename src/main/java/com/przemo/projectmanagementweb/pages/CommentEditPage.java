@@ -38,4 +38,9 @@ public class CommentEditPage extends BasePMPage {
         form.add(new Label("date"));
         add(form);
     }
+
+    @Override
+    protected Class getCurrentMenuClass() {
+        return TasksPage.class;
+    }
 }
