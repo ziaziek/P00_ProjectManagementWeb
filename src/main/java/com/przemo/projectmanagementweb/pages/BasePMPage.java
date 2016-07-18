@@ -53,7 +53,6 @@ public abstract class BasePMPage extends WebPage {
     private void initPage() {
         fpanel = new FeedbackPanel("feedback");
         add(fpanel);
-        addTopMenu();
         if (loginService.isLoggedIn()) {
             add(new LoginStatusPanel("loginStatusPanel", new CompoundPropertyModel<>(loginService.getLoggedInUser())));
         } else {
@@ -61,8 +60,23 @@ public abstract class BasePMPage extends WebPage {
         }
     }
 
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender(); //To change body of generated methods, choose Tools | Templates.
+        addTopMenu();
+    }
+    
+    
+
+    @Override
+    protected void onRender() {
+        super.onRender();
+        
+    }
+
+    
     private void addTopMenu() {
-        add(new ListView<MenuItem>("topMenu", getMenuModel()) {
+        addOrReplace(new ListView<MenuItem>("topMenu", getMenuModel()) {
 
             @Override
             protected void populateItem(ListItem<MenuItem> li) {
