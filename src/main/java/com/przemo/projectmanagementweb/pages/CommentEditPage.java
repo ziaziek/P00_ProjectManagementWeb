@@ -17,7 +17,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class CommentEditPage extends BasePMPage {
+public class CommentEditPage extends PMPage {
     
     @SpringBean
     private CommentsService commentsService;

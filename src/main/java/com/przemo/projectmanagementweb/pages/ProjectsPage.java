@@ -20,7 +20,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemysław
  */
-public class ProjectsPage extends BasePMPage {
+public class ProjectsPage extends PMPage {
     
     @SpringBean
     private ProjectService projectService;

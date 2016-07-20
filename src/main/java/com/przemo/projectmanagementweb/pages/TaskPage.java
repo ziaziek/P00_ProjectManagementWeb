@@ -40,7 +40,7 @@ import org.apache.wicket.util.visit.IVisit;
  *
  * @author Przemo
  */
-public class TaskPage extends BasePMPage {
+public class TaskPage extends PMPage {
     
     @SpringBean
     private TaskService taskService;

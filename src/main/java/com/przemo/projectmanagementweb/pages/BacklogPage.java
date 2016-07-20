@@ -14,7 +14,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class BacklogPage extends BasePMPage {
+public class BacklogPage extends PMPage {
     
     @SpringBean
     private TaskService taskService;

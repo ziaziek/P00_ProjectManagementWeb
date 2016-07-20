@@ -29,9 +29,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public abstract class BasePMPage extends WebPage {
 
     @SpringBean
-    private LoginService loginService;
+    protected LoginService loginService;
 
-    private FeedbackPanel fpanel;
+    protected FeedbackPanel fpanel;
 
     protected Class[] topMenuClasses = new Class[]{HomePage.class, SprintsListPage.class, TasksPage.class, BacklogPage.class, ProjectsPage.class};
     protected String[] topMenuNames = new String[]{"Home", "Sprints", "Tasks", "Backlog", "Projects"};
@@ -50,7 +50,7 @@ public abstract class BasePMPage extends WebPage {
         return loginService.getLoggedInUser();
     }
 
-    private void initPage() {
+    protected void initPage() {
         fpanel = new FeedbackPanel("feedback");
         add(fpanel);
         if (loginService.isLoggedIn()) {

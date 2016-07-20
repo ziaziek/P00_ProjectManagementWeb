@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Przemo
  */
-public class TimeLogEntryPage extends BasePMPage {
+public class TimeLogEntryPage extends PMPage {
 
     @SpringBean
     TimeLogService timeLogService;

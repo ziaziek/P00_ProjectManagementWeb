@@ -16,7 +16,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class SprintsListPage extends BasePMPage {
+public class SprintsListPage extends PMPage {
     
     @SpringBean
     private SprintService sprintService;
