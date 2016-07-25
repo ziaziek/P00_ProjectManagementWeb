@@ -5,6 +5,11 @@
  */
 
 
-function goback(){
+function goback() {
     window.history.back();
 }
+
+$(function () {
+    $(".datefield").datepicker({dateFormat: "yy-mm-dd"});
+}
+);
