@@ -20,7 +20,9 @@ import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -90,15 +92,26 @@ public class TaskPage extends PMPage {
             }
             
         }).setEnabled(!ticketIsClosed(model.getObject())));
-        form.add(new DropDownChoice<>("sprint", sprintService.retrieveAllSprints(), new ChoiceRenderer<Sprint>(){
+        
+        List<Sprint> sprintOptions = new ArrayList<>();
+        sprintOptions.add(null);
+        sprintOptions.addAll(sprintService.retrieveAllSprints());
+        form.add(new DropDownChoice<>("sprint",sprintOptions , new ChoiceRenderer<Sprint>(){
             @Override
             public Object getDisplayValue(Sprint object) {
+                if(object==null){
+                    return "No Sprint";
+                }
                 return object.getName();
             }
 
             @Override
             public String getIdValue(Sprint object, int index) {
-                return String.valueOf(object.getId());
+                if(object!=null){
+                   return String.valueOf(object.getId()); 
+                } else {
+                    return "";
+                }        
             }          
         }).setEnabled(!ticketIsClosed(model.getObject())));
         form.add(new DropDownChoice("status", taskService.getAvailableStatuses(), new ChoiceRenderer<Status>(){
