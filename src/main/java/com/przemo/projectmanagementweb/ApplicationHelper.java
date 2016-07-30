@@ -14,6 +14,8 @@ import org.apache.wicket.Session;
  */
 public class ApplicationHelper {
     
+    public static final String SESSION_PROJECT = "project";
+    
     public static boolean isUserLoggedIn(Session session){
         return session.getAttribute(LoginService.USER_ATTRIBUTE)!=null;
     }
