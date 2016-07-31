@@ -8,6 +8,8 @@ package com.przemo.projectmanagementweb.controls;
 import com.przemo.projectmanagementweb.ApplicationHelper;
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.services.ProjectService;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -32,8 +34,19 @@ public class CurrentProjectPanel extends Panel{
         if(getSession().getAttribute(ApplicationHelper.SESSION_PROJECT)!=null){
             project = (Projects) getSession().getAttribute(ApplicationHelper.SESSION_PROJECT); 
         }
-        Form f = new Form("form");
-        f.add(new DropDownChoice<Projects>("project", new PropertyModel(this, "project"), projectService.getAllProjects(), new ChoiceRenderer<Projects>(){
+        Form f = new Form("form"){
+            @Override
+            protected void onSubmit() {
+                if(project!=null && project.getId()!=0){
+                   getSession().setAttribute(ApplicationHelper.SESSION_PROJECT, project); 
+                } else {
+                    getSession().removeAttribute(ApplicationHelper.SESSION_PROJECT);
+                }
+                
+            }
+            
+        };
+        f.add(new DropDownChoice<Projects>("project", new PropertyModel(this, "project"), listOfProjectsToChoose() , new ChoiceRenderer<Projects>(){
             @Override            
             public Object getDisplayValue(Projects object) {
                 return object.getName();
@@ -44,19 +57,23 @@ public class CurrentProjectPanel extends Panel{
                 return object.getName();
             }           
         }){
-            @Override
-            protected boolean wantOnSelectionChangedNotifications() {
-                return true;
-            }
             
             @Override
             protected void onSelectionChanged(Projects newSelection) {
-                getSession().setAttribute(ApplicationHelper.SESSION_PROJECT, newSelection);
+                
                 project = newSelection;
                 LoggerFactory.getLogger(getClass()).info(project.getName());
             }
         });
         add(f);
+    }
+    
+    private List<Projects> listOfProjectsToChoose(){
+        List<Projects> r = new ArrayList<>();
+        Projects p = new Projects(0, "No project", null);
+        r.add(p);
+        r.addAll(projectService.getAllProjects());
+        return r;
     }
     
 }

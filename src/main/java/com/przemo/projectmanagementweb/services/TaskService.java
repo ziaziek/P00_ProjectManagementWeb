@@ -63,6 +63,10 @@ public class TaskService {
     public List<Task> getBacklogTasks(){
         return HibernateUtil.runQuery("select t from Task t where t.sprint=null");
     }
+    
+    public List<Task> getBacklogTasksForProject(Projects project){
+        return HibernateUtil.runQuery("select t from Task t where t.sprint=null and t.projects.id="+project.getId());
+    }
 
     public int saveTask(Task t) {
         if(new TaskValidator(t).validate()){

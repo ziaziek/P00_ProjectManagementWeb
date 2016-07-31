@@ -6,19 +6,15 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
-import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  *
  * @author Przemo
  */
-public class TasksPage extends PMPage {
+public class TasksPage extends ProjectFilterablePage {
 
-    @SpringBean
-    private TaskService taskService;
     public TasksPage() {
         add(new Link("newtasklink"){
             @Override

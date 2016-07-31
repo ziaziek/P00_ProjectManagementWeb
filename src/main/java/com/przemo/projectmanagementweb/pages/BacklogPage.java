@@ -5,26 +5,13 @@
  */
 package com.przemo.projectmanagementweb.pages;
 
-import com.przemo.projectmanagementweb.controls.CurrentProjectPanel;
-import com.przemo.projectmanagementweb.controls.TasksListPanel;
-import com.przemo.projectmanagementweb.services.TaskService;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 /**
  *
  * @author Przemo
  */
-public class BacklogPage extends PMPage {
+public class BacklogPage extends ProjectFilterablePage {
     
-    @SpringBean
-    private TaskService taskService;
     
-    public BacklogPage(){
-        add(new TasksListPanel("tasksList", new CompoundPropertyModel<>(taskService.getBacklogTasks())));
-        add(new CurrentProjectPanel("currentProject"));
-    }
-
     @Override
     protected Class getCurrentMenuClass() {
         return this.getClass();
