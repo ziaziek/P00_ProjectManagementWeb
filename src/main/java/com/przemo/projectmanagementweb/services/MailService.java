@@ -6,6 +6,7 @@
 package com.przemo.projectmanagementweb.services;
 
 import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,9 +22,13 @@ class MailService {
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
     }
-    void sendAccountConfirmationEmail(String email) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void sendAccountConfirmationEmail(String email, String link) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setSubject("Project Management System account activation.");
+        msg.setFrom("info@pncomp.com");
+        msg.setTo(email);
+        msg.setText("Please click the link below to activate your account. "+ link);
+        mailSender.send(msg);
     }
     
 }
