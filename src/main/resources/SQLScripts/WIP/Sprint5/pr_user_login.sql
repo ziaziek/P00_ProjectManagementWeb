@@ -12,4 +12,4 @@ create or replace function pr_user_login(username varchar(50), password text, us
 returns integer as
 'insert into userloginhistory(user_id, ip_address, client_name) values($1, $2, $3);
 select id from user where username=$1 and password=$2;'
-language sql volatile
+language sql volatile;
