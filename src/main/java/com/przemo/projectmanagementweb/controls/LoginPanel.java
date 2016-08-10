@@ -7,11 +7,13 @@ package com.przemo.projectmanagementweb.controls;
 
 import com.przemo.projectmanagementweb.pages.HomePage;
 import com.przemo.projectmanagementweb.services.LoginService;
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
@@ -29,7 +31,8 @@ public class LoginPanel extends Panel {
         Form form = new Form("loginPanel"){
             @Override
             protected void onSubmit() {
-                if(loginService.login(username, password)){
+                WebClientInfo info = (WebClientInfo) Session.get().getClientInfo();   
+                if(loginService.login(username, password, info.getProperties().getRemoteAddress(), info.getUserAgent())){
                     setResponsePage(HomePage.class);
                 }
             }   

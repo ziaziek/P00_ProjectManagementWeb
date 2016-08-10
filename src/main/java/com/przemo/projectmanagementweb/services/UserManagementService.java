@@ -8,8 +8,8 @@ package com.przemo.projectmanagementweb.services;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Users;
 import java.util.Random;
-import javax.annotation.Resource;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserManagementService {
 
-    @Resource
+    @Autowired
     MailService mailService;
 
     private String registrationIP;
@@ -35,8 +35,13 @@ public class UserManagementService {
         //save information and send confirmation email
         final String activationCode = generateActivationCode();
         try {
-            HibernateUtil.runSQLQuery("select pr_create_user(" + user.getEmail() + "," + user.getRole().getId() + "," + password + "," + activationCode + ", 60");
+            final String query = "select pr_create_user('" + user.getEmail() + "'," + user.getRole().getId() + ",'" + password + "','" + activationCode + "', 60)";
+            LoggerFactory.getLogger(getClass()).info(query);
+            HibernateUtil.runSQLQuery(query);
+            LoggerFactory.getLogger(getClass()).info("Trying to send email.");
+            LoggerFactory.getLogger(getClass()).info("Is mail service null? "+ (mailService==null));
             mailService.sendAccountConfirmationEmail(user.getEmail(), activationCode);
+            LoggerFactory.getLogger(getClass()).info("Email sent.");
             return 0;
         } catch (Exception ex) {
             LoggerFactory.getLogger(getClass()).error(ex.getMessage());

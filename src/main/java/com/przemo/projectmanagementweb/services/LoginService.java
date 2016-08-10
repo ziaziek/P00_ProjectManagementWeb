@@ -22,8 +22,9 @@ public class LoginService {
 
     public static final String USER_ATTRIBUTE = "user";
 
-    public boolean login(final String username, final String password) {
-        int uid = (int)HibernateUtil.runSQLQuery("select pr_user_login("+username+", "+password+")").get(0);
+    public boolean login(final String username, final String password, final String ip, final String clientName) {
+
+        int uid = (int)HibernateUtil.runSQLQuery("select pr_user_login('"+username+"', '"+password+"', '"+ip+"', '"+clientName+"')").get(0);
         if (uid>0) {
             Users u = (Users) HibernateUtil.runQuery("from Users where id="+uid).get(0);
             Session.get().setAttribute(USER_ATTRIBUTE, (Serializable) u);
@@ -56,6 +57,6 @@ public class LoginService {
     }
     
     protected Date lastLogin(final Users user){
-        return (Date) HibernateUtil.runQuery("select pr_last_login_for_user(" + user.getId() + ")").get(0);
+        return (Date) HibernateUtil.runSQLQuery("select pr_last_login_for_user(" + user.getId() + ")").get(0);
     }
 }
