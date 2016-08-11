@@ -19,29 +19,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-
+    
     private MailSender mailSender;
-
-    public void setMailSender(MailSender mailSender) {
+    
+    public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
     }
     void sendAccountConfirmationEmail(String email, String link) {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        LoggerFactory.getLogger(getClass()).info("Message sender host: "+ ((JavaMailSenderImpl)mailSender).getHost());
         try{
-          msg.setSubject("Project Management System account activation.");
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setSubject("Project Management System account activation.");
         msg.setFrom("info@pncomp.com");
         msg.setTo(email);
         msg.setText("Please click the link below to activate your account. "+ link);
-        LoggerFactory.getLogger(getClass()).debug("Message prepared to be sent.");
         try{
             mailSender.send(msg);
-            LoggerFactory.getLogger(getClass()).debug("Message sent.");
         } catch(MailException mex){
+            LoggerFactory.getLogger(getClass()).error("From Mail Service MailException: ");
             LoggerFactory.getLogger(getClass()).error(mex.getMessage());
         }
         } catch(Exception ex){
-            LoggerFactory.getLogger(getClass()).error(ex.getMessage());
+            LoggerFactory.getLogger(getClass()).error("From Mail Service Exception: ");
         }
         
     }

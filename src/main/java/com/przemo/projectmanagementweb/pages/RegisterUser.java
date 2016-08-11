@@ -42,7 +42,7 @@ public class RegisterUser extends PMUnloggedPage {
                 user.setEmail(email);
                 //TODO: user roles will haveto be managed somehow as well
                 user.setRole(new Role(1, "Developer"));
-                userManagementService.registerUser(user, pass1);
+                userManagementService.registerUser(user, pass1, getPage().urlFor(RegisterUser.class, null).toString());
             }
             
         };

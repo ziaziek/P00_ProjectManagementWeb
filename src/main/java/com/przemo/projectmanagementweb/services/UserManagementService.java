@@ -30,18 +30,14 @@ public class UserManagementService {
 
     private final Random random = new Random();
 
-    public int registerUser(final Users user, final String password) {
+    public int registerUser(final Users user, final String password, final String linkToRespond) {
         //TODO: password needs to be encrypted!!!!
         //save information and send confirmation email
         final String activationCode = generateActivationCode();
         try {
             final String query = "select pr_create_user('" + user.getEmail() + "'," + user.getRole().getId() + ",'" + password + "','" + activationCode + "', 60)";
-            LoggerFactory.getLogger(getClass()).info(query);
-            HibernateUtil.runSQLQuery(query);
-            LoggerFactory.getLogger(getClass()).info("Trying to send email.");
-            LoggerFactory.getLogger(getClass()).info("Is mail service null? "+ (mailService==null));
-            mailService.sendAccountConfirmationEmail(user.getEmail(), activationCode);
-            LoggerFactory.getLogger(getClass()).info("Email sent.");
+            HibernateUtil.runSQLQuery(query);        
+            mailService.sendAccountConfirmationEmail(user.getEmail(), linkToRespond+"?activationCode="+activationCode);
             return 0;
         } catch (Exception ex) {
             LoggerFactory.getLogger(getClass()).error(ex.getMessage());
