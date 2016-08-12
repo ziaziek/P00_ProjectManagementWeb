@@ -42,3 +42,11 @@ returns integer as
 'insert into userloginhistory(user_id, ip_address, client_name) values((select id from users where email=$1 limit 1), $3, $4);
 select id from users where username=$1 and password=$2;'
 language sql volatile;
+
+create or replace function pr_activate_user(code text)
+returns boolean as
+'update users set active=true where id=(select user_id from users_activation where activation_code=$1 and used=false and expires_on>now());
+update users_activation set used=true where activation_code=$1;
+select coalesce(active, false) from users where id=(select user_id from users_activation where activation_code=$1);
+'
+language sql volatile;

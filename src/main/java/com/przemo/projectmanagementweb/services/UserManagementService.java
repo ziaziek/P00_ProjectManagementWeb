@@ -56,4 +56,8 @@ public class UserManagementService {
         }
         return s.toString();
     }
+
+    public boolean activateUser(String parameterValue) {
+        return true;
+    }
 }

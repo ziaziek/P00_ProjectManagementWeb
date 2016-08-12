@@ -6,6 +6,7 @@
 package com.przemo.projectmanagementweb.pages;
 
 import com.przemo.projectmanagementweb.services.LoginService;
+import com.przemo.projectmanagementweb.services.UserManagementService;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -18,44 +19,48 @@ public class HomePage extends WebPage {
 
     @SpringBean
     LoginService loginService;
-    
-    
-    
-    public HomePage(){
-        if(!loginService.isLoggedIn()){
+
+    @SpringBean
+    UserManagementService userManagementService;
+
+    public HomePage() {
+        if (getRequest().getQueryParameters().getParameterValue("activationCode") != null) {
+            setResponsePage(new UserActivationPage(getRequest().getQueryParameters().getParameterValue("activationCode").toString()));
+        } else if (!loginService.isLoggedIn()) {
             setResponsePage(LoginPage.class);
         } else {
             addMainPanel();
         }
+
     }
-    
-    private void addMainPanel(){
-            add(new Link("sprintLink"){
+
+    private void addMainPanel() {
+        add(new Link("sprintLink") {
             @Override
             public void onClick() {
                 setResponsePage(SprintsListPage.class);
             }
-            
+
         });
-        add(new Link("backlogLink"){
+        add(new Link("backlogLink") {
             @Override
             public void onClick() {
                 setResponsePage(BacklogPage.class);
             }
-            
+
         });
-        add(new Link("taskLink"){
+        add(new Link("taskLink") {
             @Override
             public void onClick() {
                 setResponsePage(TasksPage.class);
             }
-            
+
         });
-        add(new Link("projectsLink"){
+        add(new Link("projectsLink") {
             @Override
             public void onClick() {
                 setResponsePage(ProjectsPage.class);
             }
         });
-        }
+    }
 }
