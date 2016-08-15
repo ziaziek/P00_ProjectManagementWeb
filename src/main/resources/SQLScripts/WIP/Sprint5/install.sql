@@ -16,10 +16,16 @@ alter table users add pass text;
 alter table users add active boolean;
 alter table users add activated_on timestamp without time zone;
 alter table users add ended_on timestamp without time zone;
+ALTER TABLE users
+  ADD CONSTRAINT users_email_active_unique UNIQUE (email, active);
+
 
 create table users_activation(id serial primary key, user_id int references users(id), activation_code text, 
 expires_on timestamp without time zone,
  used boolean);
+
+ALTER TABLE users_activation
+  ADD CONSTRAINT user_activation_code UNIQUE (user_id, activation_code);
 
 create table userloginhistory(id serial primary key, user_id int references users(id), date_when timestamp without time zone not null default now(), 
 ip_address varchar(15) not null,
@@ -37,15 +43,20 @@ returns timestamp without time zone as
 'select max(t.date_when) from  (select date_when from userloginhistory where user_id=$1) t;'
 language sql volatile;
 
-create or replace function pr_user_login(username varchar(50), password text, userip varchar(15), client_name text)
+create or replace function pr_user_login(username varchar(50), password text)
 returns integer as
-'insert into userloginhistory(user_id, ip_address, client_name) values((select id from users where email=$1 limit 1), $3, $4);
-select id from users where username=$1 and password=$2;'
+'select id from users where email=$1 and pass=$2 and active=true union all select 0;'
+language sql volatile;
+
+create or replace function pr_user_login_history(user_id int, userip varchar(15), client_name text)
+returns integer as
+'insert into userloginhistory(user_id, ip_address, client_name) values($1, $2, $3);
+select 1;'
 language sql volatile;
 
 create or replace function pr_activate_user(code text)
 returns boolean as
-'update users set active=true where id=(select user_id from users_activation where activation_code=$1 and used=false and expires_on>now());
+'update users set active=true where id=(select user_id from users_activation where activation_code=$1 and (used=false or used is null) and expires_on>now());
 update users_activation set used=true where activation_code=$1;
 select coalesce(active, false) from users where id=(select user_id from users_activation where activation_code=$1);
 '

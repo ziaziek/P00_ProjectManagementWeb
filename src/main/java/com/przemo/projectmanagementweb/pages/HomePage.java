@@ -24,7 +24,7 @@ public class HomePage extends WebPage {
     UserManagementService userManagementService;
 
     public HomePage() {
-        if (getRequest().getQueryParameters().getParameterValue("activationCode") != null) {
+        if (!getRequest().getQueryParameters().getParameterValue("activationCode").isNull()) {
             setResponsePage(new UserActivationPage(getRequest().getQueryParameters().getParameterValue("activationCode").toString()));
         } else if (!loginService.isLoggedIn()) {
             setResponsePage(LoginPage.class);

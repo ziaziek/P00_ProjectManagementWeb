@@ -57,7 +57,7 @@ public class UserManagementService {
         return s.toString();
     }
 
-    public boolean activateUser(String parameterValue) {
-        return true;
+    public boolean activateUser(String code) {
+        return (boolean) HibernateUtil.runSQLQuery("select pr_activate_user('"+code+"')").get(0);
     }
 }

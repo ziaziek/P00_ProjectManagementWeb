@@ -43,6 +43,7 @@ public class RegisterUser extends PMUnloggedPage {
                 //TODO: user roles will haveto be managed somehow as well
                 user.setRole(new Role(1, "Developer"));
                 userManagementService.registerUser(user, pass1, "http://localhost:8080/ProjectManagementWeb-0.1");
+                setResponsePage(UserRegistered.class);
             }
             
         };

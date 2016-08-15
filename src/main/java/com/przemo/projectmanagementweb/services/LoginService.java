@@ -24,12 +24,13 @@ public class LoginService {
 
     public boolean login(final String username, final String password, final String ip, final String clientName) {
 
-        int uid = (int)HibernateUtil.runSQLQuery("select pr_user_login('"+username+"', '"+password+"', '"+ip+"', '"+clientName+"')").get(0);
+        int uid = (int)HibernateUtil.runSQLQuery("select pr_user_login('"+username+"', '"+password+"')").get(0);
         if (uid>0) {
             Users u = (Users) HibernateUtil.runQuery("from Users where id="+uid).get(0);
             Session.get().setAttribute(USER_ATTRIBUTE, (Serializable) u);
             Session.get().setAttribute(ApplicationHelper.LAST_LOGIN, (Serializable) lastLogin(u));
             Session.get().bind();
+            HibernateUtil.runSQLQuery("select pr_user_login_history("+uid+",'"+ip+"','"+clientName+"')");
             return true;
         } else {
             Session.get().replaceSession();
