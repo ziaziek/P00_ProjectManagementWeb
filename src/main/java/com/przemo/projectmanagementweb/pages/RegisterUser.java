@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 
@@ -42,7 +43,8 @@ public class RegisterUser extends PMUnloggedPage {
                 user.setEmail(email);
                 //TODO: user roles will haveto be managed somehow as well
                 user.setRole(new Role(1, "Developer"));
-                userManagementService.registerUser(user, pass1, "http://localhost:8080/ProjectManagementWeb-0.1");
+                Url reqUrl = getRequestCycle().getRequest().getUrl();
+                userManagementService.registerUser(user, pass1, "http://"+reqUrl.getHost() + ":8080/ProjectManagementWeb-0.1");
                 setResponsePage(UserRegistered.class);
             }
             

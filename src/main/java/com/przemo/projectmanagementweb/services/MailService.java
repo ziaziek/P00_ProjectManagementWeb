@@ -31,7 +31,7 @@ public class MailService {
         msg.setSubject("Project Management System account activation.");
         msg.setFrom("info@pncomp.com");
         msg.setTo(email);
-        msg.setText("Please click the link below to activate your account. "+ link);
+        msg.setText("Please click the following below to activate your account. "+ link);
         try{
             mailSender.send(msg);
         } catch(MailException mex){
