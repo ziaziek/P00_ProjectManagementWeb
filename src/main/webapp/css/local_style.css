@@ -108,3 +108,7 @@ body {
     overflow-y: auto;
     margin: 10px;
 }
+
+.feedbackPanelERROR {
+    color: red;
+}

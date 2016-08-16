@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -52,7 +53,15 @@ public class HibernateUtil {
 
     public static List runSQLQuery(final String qry){
         Session s = getSessionFactory().openSession();
-        List l = s.createSQLQuery(qry).list();
+        Transaction tx = s.beginTransaction();
+        List l = null;
+        try {
+           l = s.createSQLQuery(qry).list(); 
+           tx.commit();
+        } catch(Exception ex){
+           tx.rollback();
+            LoggerFactory.getLogger("HibernateUtils").error(ex.getMessage());
+        }
         s.close();
         return l;
     }
@@ -99,6 +108,6 @@ public class HibernateUtil {
     }
 
     private enum OPERATION {
-        SAVE, DELETE
+        SAVE, DELETE, SELECT, EXECUTE
     };
 }

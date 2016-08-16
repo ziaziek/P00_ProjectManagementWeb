@@ -1,0 +1,63 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ * Author:  Przemo
+ * Created: 2016-08-09
+ */
+
+/*
+This file contains all changes from all other sql files for the release
+*/
+
+alter table users add pass text;
+alter table users add active boolean;
+alter table users add activated_on timestamp without time zone;
+alter table users add ended_on timestamp without time zone;
+ALTER TABLE users
+  ADD CONSTRAINT users_email_active_unique UNIQUE (email, active);
+
+
+create table users_activation(id serial primary key, user_id int references users(id), activation_code text, 
+expires_on timestamp without time zone,
+ used boolean);
+
+ALTER TABLE users_activation
+  ADD CONSTRAINT user_activation_code UNIQUE (user_id, activation_code);
+
+create table userloginhistory(id serial primary key, user_id int references users(id), date_when timestamp without time zone not null default now(), 
+ip_address varchar(15) not null,
+ client_name text);
+
+create or replace function pr_create_user(email varchar(50), rola int, pass text, code text, minutes int)
+returns integer as
+'insert into users(email, role, pass, active) values($1, $2, $3, false);
+insert into users_activation(user_id, activation_code, expires_on) values((select currval(''users_id_seq'')), $4, now()+($5 * interval ''1 minute''));
+select 1;'
+language sql volatile;
+
+create or replace function pr_last_login_for_user(user_id int)
+returns timestamp without time zone as
+'select max(t.date_when) from  (select date_when from userloginhistory where user_id=$1) t;'
+language sql volatile;
+
+create or replace function pr_user_login(username varchar(50), password text)
+returns integer as
+'select id from users where email=$1 and pass=$2 and active=true union all select 0;'
+language sql volatile;
+
+create or replace function pr_user_login_history(user_id int, userip varchar(15), client_name text)
+returns integer as
+'insert into userloginhistory(user_id, ip_address, client_name) values($1, $2, $3);
+select 1;'
+language sql volatile;
+
+create or replace function pr_activate_user(code text)
+returns boolean as
+'update users set active=true where id=(select user_id from users_activation where activation_code=$1 and (used=false or used is null) and expires_on>now());
+update users_activation set used=true where activation_code=$1;
+select coalesce(active, false) from users where id=(select user_id from users_activation where activation_code=$1);
+'
+language sql volatile;

@@ -12,7 +12,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
@@ -28,7 +27,7 @@ public class LoginStatusPanel extends Panel {
     public LoginStatusPanel(String id, IModel<Users> model) {
         super(id, model);
         add(new Label("email"));
-        add(new Label("lastLogin", Model.of("2016-04-12 12:54:00")));
+        add(new Label("lastLogin", loginService.getLastLogin()));
         add(new Link("logoutLink"){
             @Override
             public void onClick() {

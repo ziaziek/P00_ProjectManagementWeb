@@ -6,5 +6,27 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 ">
+ 
+ 
+ <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+     <property name="host" value="ssl0.ovh.net"/>
+     <property name="username" value="info@pncomp.com"/>
+     <property name="password" value="Miszczak1"/>
+     <property name="port" value="465"/>
+     <property name="protocol" value="smtps"/>
+     <property name="javaMailProperties">
+         <props>
+             <prop key="mail.smtp.starttls.enable">true</prop>
+             <prop key="mail.smtp.auth">true</prop>
+             <prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+             <prop key="mail.smtps.ssl.trust">*</prop>
+         </props>
+     </property>
+ </bean>
+ 
+ <bean id="mailService" class="com.przemo.projectmanagementweb.services.MailService">
+     <property name="mailSender" ref="mailSender"/>
+ </bean>
+ 
  <context:component-scan base-package="com.przemo.projectmanagementweb"/>
 </beans>
