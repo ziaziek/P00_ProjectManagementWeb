@@ -5,6 +5,7 @@
  */
 package com.przemo.projectmanagementweb.pages;
 
+import com.przemo.projectmanagementweb.Application;
 import com.przemo.projectmanagementweb.controls.LoginStatusPanel;
 import com.przemo.projectmanagementweb.domain.Users;
 import com.przemo.projectmanagementweb.services.LoginService;
@@ -38,11 +39,13 @@ public abstract class BasePMPage extends WebPage {
 
     public BasePMPage() {
         super();
+        initExclusively();
         initPage();
     }
 
     public BasePMPage(IModel model) {
         super(model);
+        initExclusively();
         initPage();
     }
 
@@ -53,6 +56,7 @@ public abstract class BasePMPage extends WebPage {
     protected void initPage() {
         fpanel = new FeedbackPanel("feedback");
         add(fpanel);
+        
         if (loginService.isLoggedIn()) {
             add(new LoginStatusPanel("loginStatusPanel", new CompoundPropertyModel<>(loginService.getLoggedInUser())));
         } else {
@@ -60,6 +64,10 @@ public abstract class BasePMPage extends WebPage {
         }
     }
 
+    private void initExclusively(){
+        add(new Label("applicationVersion", Application.APPLICATION_VERSION));
+    }
+    
     @Override
     protected void onBeforeRender() {
         super.onBeforeRender(); //To change body of generated methods, choose Tools | Templates.

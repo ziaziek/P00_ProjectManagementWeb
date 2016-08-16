@@ -22,8 +22,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class Application extends WebApplication {
 
-    private static String DEPLOYMENT_MODE = "application.deployment.mode";
-
+    private static final String DEPLOYMENT_MODE = "application.deployment.mode";
+    private static final String APPLICATION_VERSION_PROPERTY = "application.version" ;
+    
+    public static String APPLICATION_VERSION;
+    
     @Override
     public Class<? extends Page> getHomePage() {
         return HomePage.class;
@@ -36,6 +39,14 @@ public class Application extends WebApplication {
         ctx.scan("com.przemo.projectmanagementweb");
         ctx.refresh();
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
+        Properties applicationProperties = new Properties();
+        try{
+            applicationProperties.load(this.getClass().getResourceAsStream("application.properties"));
+            APPLICATION_VERSION=applicationProperties.getProperty(APPLICATION_VERSION_PROPERTY);
+        } catch (IOException ex) {
+            APPLICATION_VERSION="_";
+            Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
