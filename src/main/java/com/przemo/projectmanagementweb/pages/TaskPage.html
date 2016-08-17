@@ -21,8 +21,8 @@ and open the template in the editor.
             Status:<select wicket:id="status"></select>
             Task type: <select wicket:id="taskType"></select>
             Project: <select wicket:id="projects"></select>
-            <div style="border: solid 1px black; width:40%">
-                Description <br/><textarea style="width: 95%; height:50px" wicket:id="description"></textarea><br/>     
+            <div style="border: solid 1px black; max-width:70%; overflow: scroll;">
+                Description <br/><textarea style="min-width: 99%; height:80px" wicket:id="description"></textarea><br/>     
             </div>
             Estimated Time: <input wicket:id="estimatedTime"/>
             Time logged: <span wicket:id="summaryTime"></span><br/>
