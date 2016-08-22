@@ -28,6 +28,9 @@ public class SprintService {
     }
 
     public void saveSprint(Sprint object) {
+        if(object.getSprintStatus()==null){
+            object.setSprintStatus(getAllStatuses().stream().filter(s->s.getName().equals("Current")).findAny().get());
+        }
         HibernateUtil.saveObject(object);
     }
     
