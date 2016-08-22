@@ -17,6 +17,15 @@ public class Sprint  implements java.io.Serializable {
      private Date startDate;
      private Date endDate;
      private int timeAvailable;
+     private SprintStatus sprintStatus;
+
+    public SprintStatus getSprintStatus() {
+        return sprintStatus;
+    }
+
+    public void setSprintStatus(SprintStatus status) {
+        this.sprintStatus = status;
+    }
      private Set tasks = new HashSet(0);
 
     public Sprint() {

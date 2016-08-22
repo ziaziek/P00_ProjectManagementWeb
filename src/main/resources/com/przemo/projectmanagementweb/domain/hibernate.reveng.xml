@@ -11,4 +11,5 @@
   <table-filter match-name="sprint"/>
   <table-filter match-name="projects"/>
   <table-filter match-name="role"/>
+  <table-filter match-name="sprint_status"/>
 </hibernate-reverse-engineering>

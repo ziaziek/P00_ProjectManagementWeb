@@ -7,6 +7,7 @@ package com.przemo.projectmanagementweb.services;
 
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
+import com.przemo.projectmanagementweb.domain.SprintStatus;
 import java.math.BigInteger;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class SprintService {
     }
     
     public Sprint getSprint(final int id){
-        return (Sprint) HibernateUtil.runQuery("from Sprint s where s.id="+id).get(0);
+        return (Sprint) HibernateUtil.runQuery("select s from Sprint s left join fetch s.sprintStatus where s.id="+id).get(0);
     }
 
     public void saveSprint(Sprint object) {
@@ -38,4 +39,9 @@ public class SprintService {
             return new BigInteger("0");
         }   
     }
+    
+    public List<SprintStatus> getAllStatuses(){
+        return HibernateUtil.runQuery("from SprintStatus");
+    }
+    
 }

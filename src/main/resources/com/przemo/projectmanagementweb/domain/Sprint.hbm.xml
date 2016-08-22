@@ -21,6 +21,12 @@
     <property name="timeAvailable" type="int">
       <column name="time_available" not-null="true"/>
     </property>
+    <many-to-one class="com.przemo.projectmanagementweb.domain.SprintStatus" fetch="select" name="sprintStatus">
+        <key>
+            
+        </key>
+        <column name="sprint_status_id"/>
+    </many-to-one>
     <set fetch="select" inverse="true" lazy="true" name="tasks" table="task">
       <key>
         <column name="sprint"/>

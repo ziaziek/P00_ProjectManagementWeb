@@ -3,7 +3,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://${db.connection}:5432/project_management</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/project_management</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.username">przemo</property>
     <property name="hibernate.connection.password">derek</property>
@@ -16,5 +16,6 @@
     <mapping resource="com/przemo/projectmanagementweb/domain/Projects.hbm.xml"/>
     <mapping resource="com/przemo/projectmanagementweb/domain/Users.hbm.xml"/>
     <mapping resource="com/przemo/projectmanagementweb/domain/TaskComments.hbm.xml"/>
+    <mapping resource="com/przemo/projectmanagementweb/domain/SprintStatus.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
