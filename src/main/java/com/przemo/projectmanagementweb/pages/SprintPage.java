@@ -65,6 +65,7 @@ public class SprintPage extends PMPage {
         f.add(new TextField("endDate"));
         f.add(new Label("timeAvailable", sprintService.getAvailableTime(model.getObject())));
         f.add(new Label("timeElapsed", Model.of(timeLogService.getTimeLoggedForSprint(model.getObject().getId()))));
+        f.add(new Label("sprintStatus.name"));
         add(f);
         
         Form closeSprint = new Form("closeSprintForm"){
@@ -76,7 +77,7 @@ public class SprintPage extends PMPage {
             }     
         };
         add(closeSprint);
-        closeSprint.setVisible(model.getObject().getSprintStatus()!=null && !model.getObject().getSprintStatus().getName().equals("Closed"));
+        closeSprint.setVisible(model.getObject().getSprintStatus()==null || !model.getObject().getSprintStatus().getName().equals("Closed"));
         //instead of a single task panel, task panels for different sprint flows are rendered
         renderSprintFlowTaskLists(model);
     }

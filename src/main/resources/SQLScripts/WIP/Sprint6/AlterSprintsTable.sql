@@ -17,3 +17,7 @@ select 'Current' UNION
 select 'Closed';
 
 alter table sprint add sprint_status_id int references sprint_status(id);
+
+update sprint set sprint_status_id = (select id from sprint_status where name='Created');
+
+alter table sprint alter column sprint_status_id set not null;

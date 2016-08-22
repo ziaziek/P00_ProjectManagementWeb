@@ -1,37 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-08-22 15:22:18 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class name="com.przemo.projectmanagementweb.domain.Sprint" optimistic-lock="version" schema="public" table="sprint">
-    <id name="id" type="int">
-      <column name="id"/>
-      <generator class="sequence">
-          <param name="sequence">sprint_id_seq</param>
-      </generator>
-    </id>
-    <property name="name" type="string">
-      <column length="50" name="name" not-null="true"/>
-    </property>
-    <property name="startDate" type="date">
-      <column length="29" name="start_date" not-null="true"/>
-    </property>
-    <property name="endDate" type="date">
-      <column length="29" name="end_date" not-null="true"/>
-    </property>
-    <property name="timeAvailable" type="int">
-      <column name="time_available" not-null="true"/>
-    </property>
-    <many-to-one class="com.przemo.projectmanagementweb.domain.SprintStatus" fetch="select" name="sprintStatus">
-        <key>
-            
-        </key>
-        <column name="sprint_status_id"/>
-    </many-to-one>
-    <set fetch="select" inverse="true" lazy="true" name="tasks" table="task">
-      <key>
-        <column name="sprint"/>
-      </key>
-      <one-to-many class="com.przemo.projectmanagementweb.domain.Task"/>
-    </set>
-  </class>
+    <class name="com.przemo.projectmanagementweb.domain.Sprint" table="sprint" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="sequence">
+                <param name="sequence">sprint_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="sprintStatus" class="com.przemo.projectmanagementweb.domain.SprintStatus" fetch="select">
+            <column name="sprint_status_id" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="50" not-null="true" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="29" not-null="true" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="29" not-null="true" />
+        </property>
+        <property name="timeAvailable" type="int">
+            <column name="time_available" not-null="true" />
+        </property>
+        <set name="tasks" table="task" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sprint" />
+            </key>
+            <one-to-many class="com.przemo.projectmanagementweb.domain.Task" />
+        </set>
+    </class>
 </hibernate-mapping>

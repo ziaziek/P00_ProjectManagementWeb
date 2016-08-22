@@ -1,7 +1,8 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
+// Generated 2016-08-22 15:22:18 by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,10 @@ public class Users  implements java.io.Serializable {
      private int id;
      private Role role;
      private String email;
+     private String pass;
+     private Boolean active;
+     private Date activatedOn;
+     private Date endedOn;
      private Set taskCommentses = new HashSet(0);
      private Set projectses = new HashSet(0);
      private Set tasks = new HashSet(0);
@@ -25,10 +30,14 @@ public class Users  implements java.io.Serializable {
     public Users(int id) {
         this.id = id;
     }
-    public Users(int id, Role role, String email, Set taskCommentses, Set projectses, Set tasks) {
+    public Users(int id, Role role, String email, String pass, Boolean active, Date activatedOn, Date endedOn, Set taskCommentses, Set projectses, Set tasks) {
        this.id = id;
        this.role = role;
        this.email = email;
+       this.pass = pass;
+       this.active = active;
+       this.activatedOn = activatedOn;
+       this.endedOn = endedOn;
        this.taskCommentses = taskCommentses;
        this.projectses = projectses;
        this.tasks = tasks;
@@ -54,6 +63,34 @@ public class Users  implements java.io.Serializable {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getPass() {
+        return this.pass;
+    }
+    
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+    public Boolean getActive() {
+        return this.active;
+    }
+    
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+    public Date getActivatedOn() {
+        return this.activatedOn;
+    }
+    
+    public void setActivatedOn(Date activatedOn) {
+        this.activatedOn = activatedOn;
+    }
+    public Date getEndedOn() {
+        return this.endedOn;
+    }
+    
+    public void setEndedOn(Date endedOn) {
+        this.endedOn = endedOn;
     }
     public Set getTaskCommentses() {
         return this.taskCommentses;

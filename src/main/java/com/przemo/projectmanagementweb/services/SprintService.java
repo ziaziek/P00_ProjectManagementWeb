@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class SprintService {
     
     public List<Sprint> retrieveAllSprints(){
-        return HibernateUtil.runQuery("from Sprint");
+        return HibernateUtil.runQuery("from Sprint s left join fetch s.sprintStatus");
     }
     
     public Sprint getSprint(final int id){
