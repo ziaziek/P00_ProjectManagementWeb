@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.ApplicationHelper;
+import com.przemo.projectmanagementweb.helpers.ApplicationHelper;
 import com.przemo.projectmanagementweb.domain.Projects;
 import com.przemo.projectmanagementweb.services.ProjectService;
 import java.util.ArrayList;

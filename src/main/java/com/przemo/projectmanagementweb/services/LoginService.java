@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb.services;
 
-import com.przemo.projectmanagementweb.ApplicationHelper;
+import com.przemo.projectmanagementweb.helpers.ApplicationHelper;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Users;
 import java.io.Serializable;

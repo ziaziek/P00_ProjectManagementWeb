@@ -7,7 +7,7 @@ package com.przemo.projectmanagementweb.services;
 
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Users;
-import java.util.Random;
+import com.przemo.projectmanagementweb.helpers.CodeGenerator;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,16 +28,14 @@ public class UserManagementService {
         this.registrationIP = registrationIP;
     }
 
-    private final Random random = new Random();
-
     public int registerUser(final Users user, final String password, final String linkToRespond) {
         //TODO: password needs to be encrypted!!!!
         //save information and send confirmation email
-        final String activationCode = generateActivationCode();
+        final String activationCode = CodeGenerator.generateCode(user.getEmail());
         try {
             final String query = "select pr_create_user('" + user.getEmail() + "'," + user.getRole().getId() + ",'" + password + "','" + activationCode + "', 60)";
-            HibernateUtil.runSQLQuery(query);        
-            mailService.sendAccountConfirmationEmail(user.getEmail(), linkToRespond+"?activationCode="+activationCode);
+            HibernateUtil.runSQLQuery(query);
+            mailService.sendAccountConfirmationEmail(user.getEmail(), linkToRespond + "?activationCode=" + activationCode);
             return 0;
         } catch (Exception ex) {
             LoggerFactory.getLogger(getClass()).error(ex.getMessage());
@@ -45,19 +43,17 @@ public class UserManagementService {
         }
 
     }
-    
-    protected final String generateActivationCode() {
 
-        char[] arr = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'v',
-            'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < 36; i++) {
-            s.append(arr[random.nextInt(arr.length)]);
+    public Users getUserForCode(final String code) {
+        int uid = -1;
+        if (!CodeGenerator.sanitiseCode(code).equals("")) {
+            uid = (int) HibernateUtil.runSQLQuery("select coalesce((select user_id from users_activation where activation_code='" + code + "'),-1)").get(0);
         }
-        return s.toString();
+        return uid>0 ? (Users) HibernateUtil.runQuery("from Users where id=" + uid).get(0): null;
     }
 
     public boolean activateUser(String code) {
-        return (boolean) HibernateUtil.runSQLQuery("select pr_activate_user('"+code+"')").get(0);
+        Users u = getUserForCode(code);
+        return u != null && u.getId() > 0 && u.getEmail() != null && CodeGenerator.verifyCode(code, u.getEmail()) && (boolean) HibernateUtil.runSQLQuery("select pr_activate_user('" + code + "')").get(0);
     }
 }

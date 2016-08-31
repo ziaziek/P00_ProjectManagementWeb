@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.przemo.projectmanagementweb;
+package com.przemo.projectmanagementweb.helpers;
 
 import com.przemo.projectmanagementweb.services.LoginService;
 import java.util.Date;

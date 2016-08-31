@@ -5,6 +5,7 @@
  */
 package services;
 
+import com.przemo.projectmanagementweb.helpers.CodeGenerator;
 import com.przemo.projectmanagementweb.services.UserManagementService;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,8 +22,8 @@ public class UserManagementTests {
     
     static class UM extends UserManagementService{
         
-        public String generateCode(){
-            return super.generateActivationCode();
+        public String generateCode(final String sp){
+            return CodeGenerator.generateCode(sp);
         }
     }
     private static UM userManagementService;
@@ -49,7 +50,7 @@ public class UserManagementTests {
 
     @Test
     public void generateCodeTest(){
-        String code = userManagementService.generateCode();
+        String code = userManagementService.generateCode("dsfdssdg");
         Assert.assertNotNull(code);
         Assert.assertEquals(36, code.length());
         Assert.assertTrue(!code.contains(" "));

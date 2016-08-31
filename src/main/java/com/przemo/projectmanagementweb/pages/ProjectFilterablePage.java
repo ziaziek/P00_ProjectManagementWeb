@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb.pages;
 
-import com.przemo.projectmanagementweb.ApplicationHelper;
+import com.przemo.projectmanagementweb.helpers.ApplicationHelper;
 import com.przemo.projectmanagementweb.controls.CurrentProjectPanel;
 import com.przemo.projectmanagementweb.controls.TasksListPanel;
 import com.przemo.projectmanagementweb.domain.Projects;
