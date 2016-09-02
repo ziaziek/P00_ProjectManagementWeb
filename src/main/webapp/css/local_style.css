@@ -112,3 +112,7 @@ body {
 .feedbackPanelERROR {
     color: red;
 }
+
+.small_image_links img{
+    width: 20px;
+}

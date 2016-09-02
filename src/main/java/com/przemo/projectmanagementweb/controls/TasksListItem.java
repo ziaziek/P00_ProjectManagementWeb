@@ -9,8 +9,6 @@ import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.pages.TaskPage;
 import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -21,26 +19,29 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class TasksListItem extends Panel {
+public class TasksListItem extends EditableDeletableItemControl<Task> {
     
     @SpringBean
     TaskService taskService;
     
     public TasksListItem(String id, IModel<Task> model) {
-        super(id, model);
-       
-        Link l = new Link("link"){
-            @Override
-            public void onClick() {
-                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(model.getObject().getId()))));
-            }    
-        };
+        super(id, model, true, false);
         
-        l.add(new Label("title"));
-        l.add(new Label("estimatedTime"));
-        l.add(new Label("owner", new PropertyModel(model, "users.email")));
-        l.add(new Label("sprint.name", Model.of(model.getObject().getSprint()==null ? "N/A" : model.getObject().getSprint().getName())));
-        add(l);
+        add(new Label("title"));
+        add(new Label("estimatedTime"));
+        add(new Label("owner", new PropertyModel(model, "users.email")));
+        add(new Label("sprint.name", Model.of(model.getObject().getSprint()==null ? "N/A" : model.getObject().getSprint().getName())));
+
+    }
+
+    @Override
+    protected void editLinkAction() {
+        setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(getDefaultModelObjectForControl().getId()))));
+    }
+
+    @Override
+    protected void deleteLinkAction() {
+        
     }
     
 }

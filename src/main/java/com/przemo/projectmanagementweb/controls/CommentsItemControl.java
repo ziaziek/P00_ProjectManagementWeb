@@ -11,8 +11,6 @@ import com.przemo.projectmanagementweb.pages.TaskPage;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -21,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class CommentsItemControl extends Panel {
+public class CommentsItemControl extends EditableDeletableItemControl<TaskComments> {
     
     @SpringBean
     CommentsService commentsService;
@@ -33,21 +31,18 @@ public class CommentsItemControl extends Panel {
         add(new Label("users.email"));
         add(new Label("comment"));
         add(new Label("date"));
-        add(new Link("edit"){
-                @Override
-                public void onClick() {
-                    setResponsePage(new CommentEditPage(model));
-                }
-                
-            });
-        add(new Link("delete"){
-                @Override
-                public void onClick() {
-                    int id = model.getObject().getTask();
-                    commentsService.delete(model.getObject());
-                    setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(id))));
-                }            
-            });
+    }
+
+
+    @Override
+    protected void editLinkAction() {
+        setResponsePage(new CommentEditPage(new CompoundPropertyModel(getDefaultModel())));
+    }
+
+    @Override
+    protected void deleteLinkAction() {
+        commentsService.delete((TaskComments) getDefaultModelObject());
+        setResponsePage(new TaskPage(new CompoundPropertyModel(taskService.getTaskById(getDefaultModelObjectForControl().getTask()))));
     }
     
 }
