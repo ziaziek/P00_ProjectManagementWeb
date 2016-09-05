@@ -46,9 +46,13 @@ public class SprintPage extends PMPage {
         Form f = new Form("form"){
             @Override
             protected void onSubmit() {
-                sprintService.saveSprint(model.getObject());
+                try{
+                    sprintService.saveSprint(model.getObject());
                 success("Sprint saved successfully.");
                 //setResponsePage(SprintsListPage.class);
+                } catch(Exception ex){
+                    error(ex.getMessage());
+                }
             }
         };
         add(new Link("newtasklink"){
@@ -71,15 +75,35 @@ public class SprintPage extends PMPage {
         Form closeSprint = new Form("closeSprintForm"){
             @Override
             protected void onSubmit() {
-                model.getObject().setSprintStatus(sprintService.getAllStatuses().stream().filter(s -> s.getName().equals("Closed")).findFirst().get());
-                sprintService.saveSprint(model.getObject());
+                saveSprintWithStatus(model, "Closed");
                 setResponsePage(SprintsListPage.class);
             }     
         };
         add(closeSprint);
         closeSprint.setVisible(model.getObject().getSprintStatus()==null || !model.getObject().getSprintStatus().getName().equals("Closed"));
+        
+        Form currentSprint = new Form("currentSprintForm"){
+            @Override
+            protected void onSubmit() {
+                saveSprintWithStatus(model, "Current");
+                setResponsePage(SprintsListPage.class);
+            }
+            
+        };
+        add(currentSprint);
+        currentSprint.setVisible(model.getObject().getSprintStatus()==null || !model.getObject().getSprintStatus().getName().equals("Current"));
         //instead of a single task panel, task panels for different sprint flows are rendered
         renderSprintFlowTaskLists(model);
+    }
+    
+    private void saveSprintWithStatus(final IModel<Sprint> model, final String status){
+        model.getObject().setSprintStatus(sprintService.getAllStatuses().stream().filter(s -> s.getName().equals(status)).findFirst().get());
+        try{
+            sprintService.saveSprint(model.getObject());
+        } catch(Exception ex){
+            error(ex.getMessage());
+        }
+                
     }
     
     private void renderSprintFlowTaskLists(IModel<Sprint> model){
