@@ -1,11 +1,19 @@
 <wicket:panel>
-    <div>
-        <wicket:child/>
-    </div>
-    <div style="float: right;">
-        <ul class="style2 contact small_image_links">
-            <li><a wicket:id="edit_link"><img src="css/images/edit_setup.png" alt="Edit"/></a></li>
-            <li><a wicket:id="delete_link"><img src="css/images/kosz.png" alt="Delete"/></a></li>
-        </ul>
+    <div style="width:100%">
+        <table width="100%">
+            <tr>
+                <td width="80%">
+                        <wicket:child/>  
+                 </td>
+                <td>
+                    <div class="small_image_links">
+                        <a wicket:id="edit_link"><img src="css/images/edit_setup.png" alt="Edit"/></a>
+                        <a wicket:id="delete_link"><img src="css/images/kosz.png" alt="Delete"/></a>
+                    </div> 
+                </td>
+            </tr>
+        </table>
+
+
     </div>
 </wicket:panel>
