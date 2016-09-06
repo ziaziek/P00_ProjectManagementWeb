@@ -12,9 +12,12 @@ import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
+import com.przemo.projectmanagementweb.services.errors.SprintServiceSaveException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -75,7 +78,12 @@ public class SprintPage extends PMPage {
         Form closeSprint = new Form("closeSprintForm"){
             @Override
             protected void onSubmit() {
-                saveSprintWithStatus(model, "Closed");
+                try {
+                    sprintService.saveSprintWithStatus(model.getObject(), "Closed");
+                } catch (SprintServiceSaveException ex) {
+                    Logger.getLogger(SprintPage.class.getName()).log(Level.SEVERE, null, ex);
+                    error(ex.getMessage());
+                }
                 setResponsePage(SprintsListPage.class);
             }     
         };
@@ -85,26 +93,23 @@ public class SprintPage extends PMPage {
         Form currentSprint = new Form("currentSprintForm"){
             @Override
             protected void onSubmit() {
-                saveSprintWithStatus(model, "Current");
+                try {
+                    sprintService.saveSprintWithStatus(model.getObject(), "Current");
+                } catch (SprintServiceSaveException ex) {
+                    Logger.getLogger(SprintPage.class.getName()).log(Level.SEVERE, null, ex);
+                    error(ex.getMessage());
+                }
                 setResponsePage(SprintsListPage.class);
             }
             
         };
         add(currentSprint);
-        currentSprint.setVisible(model.getObject().getSprintStatus()==null || !model.getObject().getSprintStatus().getName().equals("Current"));
+        currentSprint.setVisible(model.getObject().getSprintStatus()==null || !(model.getObject().getSprintStatus().getName().equals("Current")
+                || model.getObject().getSprintStatus().getName().equals("Closed")));
         //instead of a single task panel, task panels for different sprint flows are rendered
         renderSprintFlowTaskLists(model);
     }
     
-    private void saveSprintWithStatus(final IModel<Sprint> model, final String status){
-        model.getObject().setSprintStatus(sprintService.getAllStatuses().stream().filter(s -> s.getName().equals(status)).findFirst().get());
-        try{
-            sprintService.saveSprint(model.getObject());
-        } catch(Exception ex){
-            error(ex.getMessage());
-        }
-                
-    }
     
     private void renderSprintFlowTaskLists(IModel<Sprint> model){
         statusList = taskService.getAvailableStatuses();

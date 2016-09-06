@@ -8,8 +8,10 @@ package com.przemo.projectmanagementweb.services;
 import com.przemo.projectmanagementweb.domain.HibernateUtil;
 import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.SprintStatus;
+import com.przemo.projectmanagementweb.services.errors.SprintServiceSaveException;
 import java.math.BigInteger;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -51,7 +53,18 @@ public class SprintService {
         return HibernateUtil.runQuery("from SprintStatus");
     }
 
-    public int getNumberOfSprintsForStatus(String statusName) {
-        return (int) HibernateUtil.runQuery("select count(*) from Sprint where sprintStatus.id=" + getAllStatuses().stream().filter(s -> s.getName().equals("Current")).findAny().get().getId()).get(0);
+    public long getNumberOfSprintsForStatus(String statusName) {
+        return (long) HibernateUtil.runQuery("select count(*) from Sprint where sprintStatus.name='" + statusName+"'").get(0);
+    }
+    
+    public void saveSprintWithStatus(final Sprint sprintObject, final String status) throws SprintServiceSaveException{
+        sprintObject.setSprintStatus(getAllStatuses().stream().filter(s -> s.getName().equals(status)).findFirst().get());
+        try{
+            saveSprint(sprintObject);         
+        } catch(Exception ex){
+            LoggerFactory.getLogger(getClass()).error(ex.getMessage());
+            throw new SprintServiceSaveException("Sprint could not be saved due to internal error. ");
+        }
+                
     }
 }
