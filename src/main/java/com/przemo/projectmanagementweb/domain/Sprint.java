@@ -1,5 +1,5 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
+// Generated 2016-08-22 15:22:18 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Sprint  implements java.io.Serializable {
 
 
      private int id;
+     private SprintStatus sprintStatus;
      private String name;
      private Date startDate;
      private Date endDate;
@@ -30,8 +31,9 @@ public class Sprint  implements java.io.Serializable {
         this.endDate = endDate;
         this.timeAvailable = timeAvailable;
     }
-    public Sprint(int id, String name, Date startDate, Date endDate, int timeAvailable, Set tasks) {
+    public Sprint(int id, SprintStatus sprintStatus, String name, Date startDate, Date endDate, int timeAvailable, Set tasks) {
        this.id = id;
+       this.sprintStatus = sprintStatus;
        this.name = name;
        this.startDate = startDate;
        this.endDate = endDate;
@@ -45,6 +47,13 @@ public class Sprint  implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
+    }
+    public SprintStatus getSprintStatus() {
+        return this.sprintStatus;
+    }
+    
+    public void setSprintStatus(SprintStatus sprintStatus) {
+        this.sprintStatus = sprintStatus;
     }
     public String getName() {
         return this.name;

@@ -1,5 +1,5 @@
 package com.przemo.projectmanagementweb.domain;
-// Generated 2016-05-05 17:32:58 by Hibernate Tools 4.3.1
+// Generated 2016-08-22 15:22:18 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
