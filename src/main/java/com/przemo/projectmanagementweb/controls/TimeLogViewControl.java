@@ -11,8 +11,6 @@ import com.przemo.projectmanagementweb.pages.TimeLogEntryPage;
 import com.przemo.projectmanagementweb.services.TaskService;
 import com.przemo.projectmanagementweb.services.TimeLogService;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -21,7 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  *
  * @author Przemo
  */
-public class TimeLogViewControl extends Panel{
+public class TimeLogViewControl extends EditableDeletableItemControl<TimeLog>{
     
     @SpringBean
     TimeLogService timeLogService;
@@ -33,19 +31,17 @@ public class TimeLogViewControl extends Panel{
         super(id, model);
         add(new Label("time"));
         add(new Label("date"));
-        add(new Link("editlink"){
-            @Override
-            public void onClick() {
-                setResponsePage(new TimeLogEntryPage(model, model.getObject().getTask()));
-            }
-        });
-        add(new Link("deletelink"){
-            @Override
-            public void onClick() {
-                timeLogService.delete(model.getObject());
-                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(model.getObject().getTask()))));
-            }
-        });
+    }
+
+    @Override
+    protected void editLinkAction() {
+        setResponsePage(new TimeLogEntryPage((IModel<TimeLog>) getDefaultModel(), getDefaultModelObjectForControl().getTask()));
+    }
+
+    @Override
+    protected void deleteLinkAction() {
+        timeLogService.delete(getDefaultModelObjectForControl());
+                setResponsePage(new TaskPage(new CompoundPropertyModel<>(taskService.getTaskById(getDefaultModelObjectForControl().getTask()))));
     }
     
 }
