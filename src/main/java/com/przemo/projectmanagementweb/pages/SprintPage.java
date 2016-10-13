@@ -70,6 +70,7 @@ public class SprintPage extends PMPage {
         f.add(new TextField("name"));
         f.add(new TextField<>("startDate"));
         f.add(new TextField("endDate"));
+       
         f.add(new Label("timeAvailable", sprintService.getAvailableTime(model.getObject())));
         f.add(new Label("timeElapsed", Model.of(timeLogService.getTimeLoggedForSprint(model.getObject().getId()))));
         f.add(new Label("sprintStatus.name"));

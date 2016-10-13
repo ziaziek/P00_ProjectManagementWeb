@@ -10,6 +10,6 @@ function goback() {
 }
 
 $(function () {
-    $(".datefield").datepicker({dateFormat: "yy-mm-dd"});
+    $(".datefield").datepicker({duration: "slow", dateFormat: "yy-mm-dd", regional:"pl"});
 }
 );
