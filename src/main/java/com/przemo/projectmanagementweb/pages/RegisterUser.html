@@ -1,12 +1,13 @@
 <wicket:extend>
     Register user.
-    <div>
+    <div style="width:100%">
         <form wicket:id="form">
             <fieldset>
-                E-mail: <input type="text" wicket:id="email"/>
-                Password: <input type="password" wicket:id="pass1"/>
-                Repeat password: <input type="password" wicket:id="pass2"/>
-                <input type="submit" value="OK"/>
+                <span class="column1">E-mail: <input type="text" wicket:id="email"/></span>
+                <span class="column2">Password: <input type="password" wicket:id="pass1"/></span>
+                <span class="column3">Repeat password: <input type="password" wicket:id="pass2"/></span>
+                <br/><br/>
+                <input class="column4" type="submit" value="OK"/>
             </fieldset>
         </form>
     </div>
