@@ -14,34 +14,48 @@ and open the template in the editor.
     </head>
     <body>
     <wicket:extend>
-        <h3><span wicket:id="id"></span></h3>
+        <div class="subcontent">
+         <h3><span wicket:id="id"></span></h3>
         <form wicket:id="form"> 
-           <h3><input wicket:id="title"></h3> 
-            Belongs to sprint: <select wicket:id="sprint"></select>
-            Status:<select wicket:id="status"></select>
-            Task type: <select wicket:id="taskType"></select>
-            Project: <select wicket:id="projects"></select>
-            <div style="border: solid 1px black; max-width:70%; overflow: scroll;">
+            <div>Title:&nbsp;<input wicket:id="title"></div>
+            <div>
+                <span class="column1">Belongs to sprint: <select wicket:id="sprint"></select></span>
+
+                <span class="column2">Status:<select wicket:id="status"></select></span>
+
+                <span class="column3">Task type: <select wicket:id="taskType"></select></span>
+
+                <span class="column4">Project: <select wicket:id="projects"></select></span>
+            </div>
+
+
+            <div style="width:99%; overflow: auto;">
                 Description <br/><textarea style="min-width: 99%; height:80px" wicket:id="description"></textarea><br/>     
             </div>
-            Estimated Time: <input wicket:id="estimatedTime"/>
-            Time logged: <span wicket:id="summaryTime"></span><br/>
-            Currently assigned to : <input wicket:id="users.email"/>
-            <input class="submit" type="submit" value="Save"/>
+            <div>
+                <span class="column1">Estimated Time: <input wicket:id="estimatedTime"/></span>
+                <span class="column2">Time logged: <span wicket:id="summaryTime"></span></span>
+                <span class="column3">Assigned to : <input wicket:id="users.email"/></span>
+                <span class="column4"><input class="submit" type="submit" value="Save"/></span>
+            </div>
+
         </form>
         <div>
-            Time log.<br/>
             <a wicket:id="newentrylink">Log Time</a>
+            Time log.<br/>
             <ul><li wicket:id="timelog_entry"></li></ul>
         </div>
         <div>
-                Comments: 
-                <a wicket:id="newcommentslink">Add Comments</a>
-                <div>
-                    <ul><li wicket:id="taskCommentses"></li></ul>
-                </div>
+            Comments: 
+            <a wicket:id="newcommentslink">Add Comments</a>
+            <div>
+                <ul><li wicket:id="taskCommentses"></li></ul>
             </div>
-    </wicket:extend>
+        </div>   
+            
+        </div>
         
-    </body>
+    </wicket:extend>
+
+</body>
 </html>

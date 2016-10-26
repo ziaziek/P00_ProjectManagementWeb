@@ -35,24 +35,25 @@ and open the template in the editor.
             <input class="button column2" type="submit" value="Set Current Sprint"/>
         </form>      
         
-        <div style="float:left;">
+        <div style="float:left; padding: 5px 5px 5px 5px;">
             <div>
             <a wicket:id="newtasklink">New Task</a>     
-        </div> 
-            <div class="column1">
-              To Do:
+           </div> 
+            <div class="lane_separator"></div>
+            <div class="column1 lane">
+                <span class="lanetitle">To Do:</span>
                 <div wicket:id="tasksListToDo"></div>  
             </div>
-            <div class="column2">
-              In Progress:
+            <div class="column2 lane">
+              <span class="lanetitle">In Progress:</span>
             <div wicket:id="tasksListInProgress"></div>  
             </div>
-            <div class="column3">
-              Under Review:
+            <div class="column3 lane">
+              <span class="lanetitle">Under Review:</span>
             <div wicket:id="tasksListUnderReview"></div>  
             </div>
-            <div class="column4">
-              Done:
+            <div class="column4 lane_last">
+              <span class="lanetitle">Done:</span>
             <div wicket:id="tasksListDone"></div>  
             </div>
             
