@@ -1,16 +1,25 @@
 <wicket:extend>
-    <form wicket:id="form">
-        Name: <input wicket:id="name"/>
-        Start date: <input class="datefield" wicket:id="startdate"/>
-        End date: <input class="datefield" wicket:id="enddate"/>
-        Description:
-        <textarea wicket:id="description"></textarea>
-        <input class="submit" type="submit" value="Save"/> 
-    </form>
+    <div>
+        <form wicket:id="form">
+            <div>
+                <span class="column1">Name: <input wicket:id="name"/></span>
+                <span class="column2">Start date: <input class="datefield" wicket:id="startdate"/></span>
+                <span class="column3">End date: <input class="datefield" wicket:id="enddate"/></span>  
+            </div>
+            <div>
+                Description:
+                <div><textarea style="width:99%" wicket:id="description"></textarea> </div>
+            </div>
+            <div>
+                <input class="submit" type="submit" value="Save"/>   
+            </div> 
+        </form>  
+    </div>
+
     <div>
         <a wicket:id="newtasklink">Add New Task</a>
-            Tasks:
-            <div wicket:id="tasksList"></div>
-        </div>
-    
+        Tasks:
+        <div wicket:id="tasksList"></div>
+    </div>
+
 </wicket:extend>

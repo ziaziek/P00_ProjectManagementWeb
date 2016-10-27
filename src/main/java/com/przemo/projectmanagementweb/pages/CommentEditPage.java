@@ -35,7 +35,6 @@ public class CommentEditPage extends PMPage {
         };
         form.add(new Label("users.email"));
         form.add(new TextArea("comment"));
-        form.add(new Label("date"));
         add(form);
     }
 

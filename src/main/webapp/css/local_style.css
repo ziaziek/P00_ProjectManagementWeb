@@ -84,10 +84,11 @@ body {
 
 .login_panel {
     width: 50%;
-    height: 20%;
     margin-left: 25%;
+    margin-right: 25%;
+    height: 20%;
     margin-top:15%;
-    background-color: lightslategray;
+    background-color: silver;
     border: 1px solid black;
 }
 
