@@ -6,7 +6,7 @@
 package com.przemo.projectmanagementweb.controls;
 
 import com.przemo.projectmanagementweb.domain.Users;
-import com.przemo.projectmanagementweb.pages.HomePage;
+import com.przemo.projectmanagementweb.pages.LoginPage;
 import com.przemo.projectmanagementweb.services.LoginService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -32,7 +32,7 @@ public class LoginStatusPanel extends Panel {
             @Override
             public void onClick() {
                 loginService.logoutUser();
-                setResponsePage(HomePage.class);
+                setResponsePage(LoginPage.class);
             }
             
         });

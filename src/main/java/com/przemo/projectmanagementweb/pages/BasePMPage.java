@@ -34,11 +34,12 @@ public abstract class BasePMPage extends WebPage {
 
     protected FeedbackPanel fpanel;
 
-    protected Class[] topMenuClasses = new Class[]{HomePage.class, SprintsListPage.class, TasksPage.class, BacklogPage.class, ProjectsPage.class};
-    protected String[] topMenuNames = new String[]{"Home", "Sprints", "Tasks", "Backlog", "Projects"};
+    protected Class[] topMenuClasses = new Class[]{SprintsListPage.class, TasksPage.class, BacklogPage.class, ProjectsPage.class};
+    protected String[] topMenuNames = new String[]{"Sprints", "Tasks", "Backlog", "Projects"};
 
     public BasePMPage() {
         super();
+        
         initExclusively();
         initPage();
     }

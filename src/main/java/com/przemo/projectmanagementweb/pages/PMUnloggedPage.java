@@ -18,7 +18,7 @@ public abstract class PMUnloggedPage extends BasePMPage{
         @Override
     protected void initPage() {       
         if (loginService.isLoggedIn()) {
-            setResponsePage(HomePage.class);
+            setResponsePage(SprintsListPage.class);
         } else {
             Session.get().replaceSession();
             fpanel = new FeedbackPanel("feedback");

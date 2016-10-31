@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb;
 
-import com.przemo.projectmanagementweb.pages.HomePage;
+import com.przemo.projectmanagementweb.pages.SprintsListPage;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ public class Application extends WebApplication {
     
     @Override
     public Class<? extends Page> getHomePage() {
-        return HomePage.class;
+        return SprintsListPage.class;
     }
     
     @Override

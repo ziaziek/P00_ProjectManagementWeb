@@ -39,7 +39,7 @@ public class ProjectPage extends PMPage{
             @Override
             protected void onSubmit() {
                 projectService.saveProject(model.getObject());
-                setResponsePage(HomePage.class);
+                setResponsePage(SprintsListPage.class);
             }
             
         };

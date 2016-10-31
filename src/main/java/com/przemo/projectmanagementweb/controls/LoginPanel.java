@@ -5,7 +5,7 @@
  */
 package com.przemo.projectmanagementweb.controls;
 
-import com.przemo.projectmanagementweb.pages.HomePage;
+import com.przemo.projectmanagementweb.pages.SprintsListPage;
 import com.przemo.projectmanagementweb.services.LoginService;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.form.Form;
@@ -33,7 +33,7 @@ public class LoginPanel extends Panel {
             protected void onSubmit() {
                 WebClientInfo info = (WebClientInfo) Session.get().getClientInfo();   
                 if(loginService.login(username, password, info.getProperties().getRemoteAddress(), info.getUserAgent())){
-                    setResponsePage(HomePage.class);
+                    setResponsePage(SprintsListPage.class);
                 }
             }   
         };

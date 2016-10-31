@@ -10,7 +10,7 @@ import com.przemo.projectmanagementweb.domain.Sprint;
 import com.przemo.projectmanagementweb.domain.Status;
 import com.przemo.projectmanagementweb.domain.Task;
 import com.przemo.projectmanagementweb.domain.TaskType;
-import com.przemo.projectmanagementweb.pages.HomePage;
+import com.przemo.projectmanagementweb.pages.SprintsListPage;
 import com.przemo.projectmanagementweb.services.CommentsService;
 import com.przemo.projectmanagementweb.services.SprintService;
 import com.przemo.projectmanagementweb.services.TaskService;
@@ -36,7 +36,7 @@ public class TaskPage extends WebPage {
             @Override
             protected void onSubmit() {
                 new TaskService().saveTask(model.getObject());
-                setResponsePage(HomePage.class);
+                setResponsePage(SprintsListPage.class);
             }
         };
         form.add(new TextField("title"));

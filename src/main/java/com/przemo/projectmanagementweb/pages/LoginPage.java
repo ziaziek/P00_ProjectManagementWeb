@@ -17,7 +17,7 @@ public class LoginPage extends PMUnloggedPage {
 
     @Override
     protected Class getCurrentMenuClass() {
-        return HomePage.class;
+        return SprintsListPage.class;
     }
 
     @Override
