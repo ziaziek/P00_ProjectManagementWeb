@@ -13,12 +13,11 @@ and open the template in the editor.
     <body>
     <wicket:extend>
          <form wicket:id="form">
-            <p>User <span wicket:id="users.email"></span> wrote:</p>
-            <textarea wicket:id="comment"></textarea>
-            <span wicket:id="date"></span>  
-            <input class="submit" type="submit" value="Save comment"/>
+             <div><div class="column1">User <span wicket:id="users.email"></span> wrote:</div>
+                 <div><textarea style="width:960px; height:100px;" wicket:id="comment"></textarea></div>
+                 <span class="column1"><input class="submit" type="submit" value="Save comment"/></span>
+             </div>    
         </form> 
-    </wicket:extend>
-        
+    </wicket:extend>     
     </body>
 </html>

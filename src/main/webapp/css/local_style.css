@@ -84,10 +84,11 @@ body {
 
 .login_panel {
     width: 50%;
-    height: 20%;
     margin-left: 25%;
+    margin-right: 25%;
+    height: 20%;
     margin-top:15%;
-    background-color: lightslategray;
+    background-color: silver;
     border: 1px solid black;
 }
 
@@ -104,7 +105,7 @@ body {
 
 .tasks_list_panel{
     max-height: 450px;
-    width:50%;
+    width:100%;
     overflow-y: auto;
     margin: 10px;
 }
@@ -115,4 +116,36 @@ body {
 
 .small_image_links img{
     width: 20px;
+}
+
+.lane, .lane_last {
+    border-left: 1px;
+    border-left-color: black;
+    border-left-style: solid;
+    min-height: 300px;  
+}
+
+.lane_last {
+    border-right: 1px black solid;
+}
+
+.lanetitle {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+.lane_separator {
+    width:100%;
+    padding-top: 5px;
+    border-bottom: 1px black solid;
+}
+
+.subcontent{
+    float:left;
+    width:100%;
+}
+
+.subcontent div {
+    padding:10px 0px 10px 0px;
 }
