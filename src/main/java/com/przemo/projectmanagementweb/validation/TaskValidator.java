@@ -18,9 +18,12 @@ public class TaskValidator {
     public TaskValidator(Task task){
         this.task=task;
     }
-    
+    /**
+     * 
+     * @return 
+     */
     public boolean validate(){
         return task!=null && !(task.getSprint()!=null &&
-                task.getStatus().getName().equals("Created") || task.getStatus().getName().equals("Closed"));
+                task.getStatus().getName().equals("Created"));
     }
 }

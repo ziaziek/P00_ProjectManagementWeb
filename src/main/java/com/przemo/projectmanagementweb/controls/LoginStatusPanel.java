@@ -34,7 +34,6 @@ public class LoginStatusPanel extends Panel {
                 loginService.logoutUser();
                 setResponsePage(LoginPage.class);
             }
-            
         });
     }
     
